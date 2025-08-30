@@ -3,99 +3,167 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مرحبا بكم في موقعي</title>
-  
-  <!-- خط جميل من Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-
+  <title>موقعي الشخصي - رضا</title>
   <style>
     body {
-      font-family: 'Cairo', sans-serif;
-      text-align: center;
-      background: linear-gradient(-45deg, #ff9966, #ff5e62, #66ccff, #0099cc);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       margin: 0;
       padding: 0;
+      background: linear-gradient(135deg, #ff9966, #66ccff);
+      color: white;
+      text-align: center;
+      transition: all 0.5s ease;
     }
 
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+    /* شريط التنقل */
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background: rgba(0,0,0,0.3);
+      padding: 15px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: yellow;
+      transform: scale(1.1);
     }
 
     header {
-      padding: 60px 20px;
-      font-size: 36px;
+      padding: 50px 20px;
+      font-size: 35px;
       font-weight: bold;
-      animation: fadeInDown 2s ease;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    section {
+      padding: 50px 20px;
+      max-width: 800px;
+      margin: auto;
     }
 
     p {
-      font-size: 22px;
-      margin: 15px 0;
-      animation: fadeIn 3s ease;
-    }
-
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 12px 25px;
       font-size: 20px;
-      color: #fff;
-      background: rgba(0,0,0,0.3);
-      border: 2px solid #fff;
-      border-radius: 30px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .btn:hover {
-      background: #fff;
-      color: #333;
-      transform: scale(1.05);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      line-height: 1.6;
     }
 
     footer {
-      margin-top: 60px;
+      margin-top: 50px;
       padding: 20px;
-      background: rgba(0,0,0,0.4);
+      background: rgba(0,0,0,0.3);
       font-size: 16px;
-      animation: fadeInUp 2s ease;
     }
 
-    /* Animations */
+    button {
+      background: white;
+      color: #333;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #333;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    /* أيقونات */
+    .socials a {
+      margin: 0 10px;
+      font-size: 25px;
+      color: white;
+      transition: 0.3s;
+    }
+    .socials a:hover {
+      color: yellow;
+      transform: scale(1.2);
+    }
+
     @keyframes fadeIn {
       from {opacity: 0;}
       to {opacity: 1;}
     }
-
-    @keyframes fadeInDown {
-      from {opacity: 0; transform: translateY(-50px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-
-    @keyframes fadeInUp {
-      from {opacity: 0; transform: translateY(50px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
   </style>
+  <!-- مكتبة أيقونات -->
+  <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <header>
+  <!-- شريط التنقل -->
+  <nav>
+    <a href="#home" class="lang" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a>
+    <a href="#about" class="lang" data-ar="👤 عني" data-en="👤 About">👤 عني</a>
+    <a href="#contact" class="lang" data-ar="📩 تواصل" data-en="📩 Contact">📩 تواصل</a>
+  </nav>
+
+  <header id="home" class="lang" data-ar="👋 أهلاً بيكم في موقع رضا" data-en="👋 Welcome to Reda's Website">
     👋 أهلاً بيكم في موقع رضا
   </header>
 
-  <p>ده أول موقع بسيط معمول باستخدام GitHub Pages.</p>
-  <p>تقدر تعدل عليه وتخلي شكله زي ما تحب 🚀.</p>
+  <section>
+    <p class="lang" data-ar="ده أول موقع بسيط معمول باستخدام GitHub Pages." 
+       data-en="This is my first simple website using GitHub Pages.">
+       ده أول موقع بسيط معمول باستخدام GitHub Pages.
+    </p>
 
-  <a href="https://github.com/redaragd03-crypto" target="_blank" class="btn">زورني على GitHub</a>
+    <p class="lang" data-ar="تقدر تعدل عليه وتخلي شكله زي ما تحب." 
+       data-en="You can edit it and make it look the way you like.">
+       تقدر تعدل عليه وتخلي شكله زي ما تحب.
+    </p>
+  </section>
 
-  <footer>
-    &copy; 2025 - Rida Ragd | جميع الحقوق محفوظة
+  <!-- قسم عني -->
+  <section id="about">
+    <h2 class="lang" data-ar="👤 عني" data-en="👤 About Me">👤 عني</h2>
+    <p class="lang" data-ar="أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم." 
+       data-en="I’m Reda, a beginner web developer. I love learning and experimenting with coding and design.">
+       أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم.
+    </p>
+  </section>
+
+  <!-- قسم تواصل -->
+  <section id="contact">
+    <h2 class="lang" data-ar="📩 تواصل معي" data-en="📩 Contact Me">📩 تواصل معي</h2>
+    <p class="lang" data-ar="ممكن تتواصل معايا عن طريق:" 
+       data-en="You can reach me via:">
+       ممكن تتواصل معايا عن طريق:
+    </p>
+    <div class="socials">
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+    </div>
+  </section>
+
+  <!-- أزرار اللغة -->
+  <div>
+    <button onclick="setLang('ar')">🇸🇦 عربي</button>
+    <button onclick="setLang('en')">🇬🇧 English</button>
+  </div>
+
+  <footer class="lang" data-ar="&copy; 2025 - رضا راجد" data-en="&copy; 2025 - Rida Ragd">
+    &copy; 2025 - رضا راجد
   </footer>
+
+  <script>
+    function setLang(lang) {
+      document.querySelectorAll('.lang').forEach(el => {
+        el.innerHTML = el.getAttribute('data-' + lang);
+      });
+      document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    }
+  </script>
 </body>
 </html>
