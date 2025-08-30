@@ -15,7 +15,6 @@
       transition: all 0.5s ease;
     }
 
-    /* شريط التنقل */
     nav {
       display: flex;
       justify-content: center;
@@ -80,7 +79,6 @@
       transform: scale(1.1);
     }
 
-    /* أيقونات */
     .socials a {
       margin: 0 10px;
       font-size: 25px;
@@ -92,16 +90,60 @@
       transform: scale(1.2);
     }
 
+    /* زر الصعود للأعلى */
+    #toTop {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: yellow;
+      color: black;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    /* الوضع الليلي */
+    .dark {
+      background: linear-gradient(135deg, #1a1a1a, #333);
+      color: #ddd;
+    }
+    .dark nav {
+      background: rgba(255,255,255,0.1);
+    }
+    .dark footer {
+      background: rgba(255,255,255,0.1);
+    }
+
     @keyframes fadeIn {
       from {opacity: 0;}
       to {opacity: 1;}
     }
+
+    /* فورم التواصل */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    input, textarea {
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+    }
+    textarea {
+      resize: none;
+      height: 100px;
+    }
   </style>
-  <!-- مكتبة أيقونات -->
   <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <!-- شريط التنقل -->
   <nav>
     <a href="#home" class="lang" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a>
     <a href="#about" class="lang" data-ar="👤 عني" data-en="👤 About">👤 عني</a>
@@ -117,14 +159,12 @@
        data-en="This is my first simple website using GitHub Pages.">
        ده أول موقع بسيط معمول باستخدام GitHub Pages.
     </p>
-
     <p class="lang" data-ar="تقدر تعدل عليه وتخلي شكله زي ما تحب." 
        data-en="You can edit it and make it look the way you like.">
        تقدر تعدل عليه وتخلي شكله زي ما تحب.
     </p>
   </section>
 
-  <!-- قسم عني -->
   <section id="about">
     <h2 class="lang" data-ar="👤 عني" data-en="👤 About Me">👤 عني</h2>
     <p class="lang" data-ar="أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم." 
@@ -133,29 +173,40 @@
     </p>
   </section>
 
-  <!-- قسم تواصل -->
   <section id="contact">
     <h2 class="lang" data-ar="📩 تواصل معي" data-en="📩 Contact Me">📩 تواصل معي</h2>
     <p class="lang" data-ar="ممكن تتواصل معايا عن طريق:" 
        data-en="You can reach me via:">
        ممكن تتواصل معايا عن طريق:
     </p>
+    <p>📞 01152424287</p>
     <div class="socials">
       <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
       <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
       <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
     </div>
+
+    <!-- نموذج تواصل -->
+    <form onsubmit="sendMessage(event)">
+      <input type="text" placeholder="الاسم" required>
+      <input type="email" placeholder="الإيميل" required>
+      <textarea placeholder="اكتب رسالتك..." required></textarea>
+      <button type="submit">📨 إرسال</button>
+    </form>
   </section>
 
-  <!-- أزرار اللغة -->
   <div>
     <button onclick="setLang('ar')">🇸🇦 عربي</button>
     <button onclick="setLang('en')">🇬🇧 English</button>
+    <button onclick="toggleDark()">🌙/☀️ وضع ليلي</button>
   </div>
 
   <footer class="lang" data-ar="&copy; 2025 - رضا راجد" data-en="&copy; 2025 - Rida Ragd">
     &copy; 2025 - رضا راجد
   </footer>
+
+  <!-- زر الرجوع للأعلى -->
+  <button id="toTop" onclick="scrollToTop()">⬆</button>
 
   <script>
     function setLang(lang) {
@@ -163,6 +214,24 @@
         el.innerHTML = el.getAttribute('data-' + lang);
       });
       document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    }
+
+    function toggleDark() {
+      document.body.classList.toggle("dark");
+    }
+
+    window.onscroll = function() {
+      document.getElementById("toTop").style.display = 
+        (document.documentElement.scrollTop > 200) ? "block" : "none";
+    };
+
+    function scrollToTop() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function sendMessage(e) {
+      e.preventDefault();
+      alert("✅ تم إرسال رسالتك بنجاح! (محاكاة فقط)");
     }
   </script>
 </body>
