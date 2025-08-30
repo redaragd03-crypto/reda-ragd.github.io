@@ -100,46 +100,57 @@ textarea {resize:none; height:100px;}
 <button id="toTop" onclick="scrollToTop()">⬆</button>
 
 <script>
-function setLang(lang){
-document.querySelectorAll('.lang').forEach(el => el.innerHTML=el.getAttribute('data-'+lang));
-document.body.dir=(lang==='ar')?'rtl':'ltr';
-}
-
+function setLang(lang){document.querySelectorAll('.lang').forEach(el => el.innerHTML=el.getAttribute('data-'+lang));document.body.dir=(lang==='ar')?'rtl':'ltr';}
 function toggleDark(){document.body.classList.toggle("dark");}
 window.onscroll=function(){document.getElementById("toTop").style.display=(document.documentElement.scrollTop>200)?"block":"none";}
 function scrollToTop(){window.scrollTo({top:0, behavior:'smooth'});}
 function sendMessage(e){e.preventDefault();alert("✅ تم إرسال رسالتك بنجاح! (محاكاة فقط)");}
 
-// لعبة X و O
-let board=["","","","","","","","",""];
-let turn="X";
-const cells=document.querySelectorAll(".cell");
-const statusDiv=document.getElementById("gameStatus");
-const resetBtn=document.getElementById("resetBtn");
+// لعبة X و O محسنة
+document.addEventListener("DOMContentLoaded", function(){
+  let board=["","","","","","","","",""];
+  let turn="X";
+  const cells=document.querySelectorAll(".cell");
+  const statusDiv=document.getElementById("gameStatus");
+  const resetBtn=document.getElementById("resetBtn");
 
-function checkWinner(){
-const winCombos=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-for(let combo of winCombos){const [a,b,c]=combo;if(board[a]&&board[a]===board[b]&&board[a]===board[c]) return board[a];}
-return board.includes("")?null:"Tie";
-}
+  function checkWinner(){
+    const winCombos=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+    for(let combo of winCombos){
+      const [a,b,c]=combo;
+      if(board[a] && board[a]===board[b] && board[a]===board[c]) return board[a];
+    }
+    return board.includes("")?null:"Tie";
+  }
 
-function updateBoard(){
-cells.forEach((cell,i)=>cell.textContent=board[i]);
-let winner=checkWinner();
-if(winner){
-if(winner==="Tie"){statusDiv.textContent="تعادل / Tie";}
-else{statusDiv.textContent="اللاعب "+winner+" فاز! / Player "+winner+" wins!";}
-}else{statusDiv.textContent="دور: "+turn+" / Turn: "+turn;}
-}
+  function updateBoard(){
+    cells.forEach((cell,i)=>cell.textContent=board[i]);
+    let winner=checkWinner();
+    if(winner){
+      if(winner==="Tie"){statusDiv.textContent="تعادل / Tie";}
+      else{statusDiv.textContent="اللاعب "+winner+" فاز! / Player "+winner+" wins!";}
+    }else{
+      statusDiv.textContent="دور: "+turn+" / Turn: "+turn;
+    }
+  }
 
-cells.forEach(cell=>cell.addEventListener("click",()=>{
-let i=parseInt(cell.getAttribute("data-index"));
-if(!board[i]&&checkWinner()===null){board[i]=turn; turn=(turn==="X")?"O":"X"; updateBoard();}
-}));
+  cells.forEach(cell=>cell.addEventListener("click", ()=>{
+    let i=parseInt(cell.getAttribute("data-index"));
+    if(!board[i] && checkWinner()===null){
+      board[i]=turn;
+      turn=(turn==="X")?"O":"X";
+      updateBoard();
+    }
+  }));
 
-resetBtn.addEventListener("click",()=>{board=["","","","","","","","",""]; turn="X"; updateBoard();});
+  resetBtn.addEventListener("click", ()=>{
+    board=["","","","","","","","",""];
+    turn="X";
+    updateBoard();
+  });
 
-updateBoard();
+  updateBoard();
+});
 </script>
 </body>
 </html>
