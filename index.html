@@ -29,10 +29,8 @@ textarea{resize:none;height:100px}
 .cell:hover{background:rgba(255,255,255,.4)}
 #gameStatus{font-size:22px;margin-top:15px}
 #resetBtn{margin-top:15px;padding:10px 20px;font-size:16px;border-radius:20px;cursor:pointer;background:yellow;color:black}
-
 /* Snake Game */
-#snakeCanvas{background:black;margin:20px auto;display:block;border:2px solid yellow}
-#snakeControls button,#snakeSpeed button{margin:5px}
+#snakeCanvas{background:black;margin:20px auto;display:block;border:2px solid yellow;max-width:90vw}
 </style>
 </head>
 <body>
@@ -75,22 +73,8 @@ textarea{resize:none;height:100px}
 
 <!-- Snake Game -->
 <div id="snakeGame" style="display:none">
-  <p>نقاطك: <span id="snakeScore">0</span></p>
-  <canvas id="snakeCanvas" width="300" height="300"></canvas>
-  <p>استخدم الأسهم للتحريك أو الأزرار أدناه</p>
-  <div id="snakeControls">
-    <button onclick="dx=0;dy=-1">⬆</button>
-    <button onclick="dx=0;dy=1">⬇</button>
-    <button onclick="dx=-1;dy=0">⬅</button>
-    <button onclick="dx=1;dy=0">➡</button>
-  </div>
-  <div id="snakeSpeed" style="margin-top:10px">
-    <button onclick="setSpeed(300)">بطيء</button>
-    <button onclick="setSpeed(200)">متوسط</button>
-    <button onclick="setSpeed(100)">سريع</button>
-  </div>
-  <audio id="eatSound" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg"></audio>
-  <audio id="gameOverSound" src="https://actions.google.com/sounds/v1/cartoon/cartoon_boing.ogg"></audio>
+<canvas id="snakeCanvas"></canvas>
+<p class="lang" data-ar="استخدم الأسهم للتحريك" data-en="Use arrow keys to move">استخدم الأسهم للتحريك</p>
 </div>
 </section>
 
@@ -134,7 +118,7 @@ function showGame(name){
   document.getElementById('snakeGame').style.display=(name==='snake')?'block':'none';
 }
 
-// Tic Tac Toe مع روبوت
+// Tic Tac Toe
 document.addEventListener("DOMContentLoaded",function(){
 let b=["","","","","","","","",""],p="X",a="O",c=document.querySelectorAll("#xoGame .cell"),s=document.getElementById("gameStatus"),r=document.getElementById("resetBtn");
 function w(){const f=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let e of f){let [x,y,z]=e;if(b[x]&&b[x]===b[y]&&b[x]===b[z])return b[x]}return b.includes("")?null:"Tie"}
@@ -147,46 +131,34 @@ r.addEventListener("click",()=>{b=["","","","","","","","",""];u()});u();
 // Snake Game
 const canvas=document.getElementById('snakeCanvas');
 const ctx=canvas.getContext('2d');
-let snake=[{x:10,y:10}];
-let dx=1,dy=0;
-let food={x:15,y:15};
-let size=20;
-let score=0;
-let intervalTime=200;
-let snakeInterval;
-const eatSound=document.getElementById('eatSound');
-const gameOverSound=document.getElementById('gameOverSound');
+let snake=[{x:10,y:10}],dx=1,dy=0,food={x:15,y:15},cellSize=20;
+
+function resizeCanvas(){
+  const size=Math.min(window.innerWidth*0.9,300);
+  canvas.width=size;
+  canvas.height=size;
+  cellSize=size/15;
+}
+resizeCanvas();
+window.addEventListener('resize',resizeCanvas);
 
 function drawSnake(){
   ctx.fillStyle='black';
   ctx.fillRect(0,0,canvas.width,canvas.height);
   ctx.fillStyle='lime';
-  snake.forEach(s=>ctx.fillStyle='hsl('+(s.x*20+s.y*20)+',70%,50%)',ctx.fillRect(s.x*size,s.y*size,size-2,size-2));
+  snake.forEach(s=>ctx.fillRect(s.x*cellSize,s.y*cellSize,cellSize-2,cellSize-2));
   ctx.fillStyle='red';
-  ctx.fillRect(food.x*size,food.y*size,size-2,size-2);
+  ctx.fillRect(food.x*cellSize,food.y*cellSize,cellSize-2,cellSize-2);
 }
 
 function moveSnake(){
   let head={x:snake[0].x+dx,y:snake[0].y+dy};
   snake.unshift(head);
-  if(head.x===food.x && head.y===food.y){
-    score++;
-    eatSound.play();
-    document.getElementById('snakeScore').textContent=score;
-    food={x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)};
-  }else{
-    snake.pop();
+  if(head.x===food.x && head.y===food.y){food={x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)}}
+  else{snake.pop()}
+  if(snake.slice(1).some(s=>s.x===head.x && s.y===head.y) || head.x<0 || head.y<0 || head.x>=15 || head.y>=15){
+    snake=[{x:10,y:10}]; dx=1; dy=0; food={x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)};
   }
-
-  if(snake.slice(1).some(s=>s.x===head.x && s.y===head.y)||head.x<0||head.y<0||head.x>=15||head.y>=15){
-    gameOverSound.play();
-    snake=[{x:10,y:10}];
-    dx=1; dy=0;
-    score=0;
-    document.getElementById('snakeScore').textContent=score;
-    food={x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)};
-  }
-
   drawSnake();
 }
 
@@ -197,13 +169,7 @@ document.addEventListener('keydown',e=>{
   else if(e.key==='ArrowRight'&&dx!==-1){dx=1;dy=0}
 });
 
-function setSpeed(ms){
-  intervalTime=ms;
-  clearInterval(snakeInterval);
-  snakeInterval=setInterval(moveSnake,intervalTime);
-}
-
-snakeInterval=setInterval(moveSnake, intervalTime);
+setInterval(moveSnake,200);
 </script>
 </body>
 </html>
