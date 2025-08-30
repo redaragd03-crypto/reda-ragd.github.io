@@ -1,318 +1,145 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>موقعي الشخصي - رضا</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #ff9966, #66ccff);
-      color: white;
-      text-align: center;
-      transition: all 0.5s ease;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      background: rgba(0,0,0,0.3);
-      padding: 15px;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 18px;
-      transition: 0.3s;
-    }
-    nav a:hover {
-      color: yellow;
-      transform: scale(1.1);
-    }
-
-    header {
-      padding: 50px 20px;
-      font-size: 35px;
-      font-weight: bold;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    section {
-      padding: 50px 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-
-    p {
-      font-size: 20px;
-      line-height: 1.6;
-    }
-
-    footer {
-      margin-top: 50px;
-      padding: 20px;
-      background: rgba(0,0,0,0.3);
-      font-size: 16px;
-    }
-
-    button {
-      background: white;
-      color: #333;
-      border: none;
-      padding: 10px 20px;
-      margin: 10px;
-      border-radius: 25px;
-      cursor: pointer;
-      font-size: 16px;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #333;
-      color: white;
-      transform: scale(1.1);
-    }
-
-    .socials a {
-      margin: 0 10px;
-      font-size: 25px;
-      color: white;
-      transition: 0.3s;
-    }
-    .socials a:hover {
-      color: yellow;
-      transform: scale(1.2);
-    }
-
-    /* زر الصعود للأعلى */
-    #toTop {
-      display: none;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: yellow;
-      color: black;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 50%;
-      cursor: pointer;
-      font-size: 18px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.3);
-    }
-
-    /* الوضع الليلي */
-    .dark {
-      background: linear-gradient(135deg, #1a1a1a, #333);
-      color: #ddd;
-    }
-    .dark nav {
-      background: rgba(255,255,255,0.1);
-    }
-    .dark footer {
-      background: rgba(255,255,255,0.1);
-    }
-
-    @keyframes fadeIn {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 20px;
-    }
-    input, textarea {
-      padding: 10px;
-      border-radius: 10px;
-      border: none;
-      outline: none;
-    }
-    textarea {
-      resize: none;
-      height: 100px;
-    }
-
-    /* لعبة X و O */
-    #ticTacToe {
-      margin-top: 30px;
-    }
-    .board {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-gap: 5px;
-      justify-content: center;
-      margin: 20px 0;
-    }
-    .cell {
-      width: 100px;
-      height: 100px;
-      background: rgba(255,255,255,0.2);
-      font-size: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .cell:hover {
-      background: rgba(255,255,255,0.4);
-    }
-    #gameStatus {
-      margin-top: 10px;
-      font-size: 18px;
-    }
-  </style>
-  <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موقعي الشخصي - رضا</title>
+<style>
+body {font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin:0; padding:0; background:linear-gradient(135deg,#ff9966,#66ccff); color:white; text-align:center; transition:all 0.5s ease;}
+nav {display:flex; justify-content:center; gap:20px; background:rgba(0,0,0,0.3); padding:15px; position:sticky; top:0; z-index:1000;}
+nav a {color:white; text-decoration:none; font-size:18px; transition:0.3s;}
+nav a:hover {color:yellow; transform:scale(1.1);}
+header {padding:50px 20px; font-size:35px; font-weight:bold; text-shadow:2px 2px 5px rgba(0,0,0,0.3); animation:fadeIn 2s ease-in-out;}
+section {padding:50px 20px; max-width:800px; margin:auto;}
+p {font-size:20px; line-height:1.6;}
+footer {margin-top:50px; padding:20px; background:rgba(0,0,0,0.3); font-size:16px;}
+button {background:white; color:#333; border:none; padding:10px 20px; margin:10px; border-radius:25px; cursor:pointer; font-size:16px; transition:0.3s;}
+button:hover {background:#333; color:white; transform:scale(1.1);}
+.socials a {margin:0 10px; font-size:25px; color:white; transition:0.3s;}
+.socials a:hover {color:yellow; transform:scale(1.2);}
+#toTop {display:none; position:fixed; bottom:20px; right:20px; background:yellow; color:black; border:none; padding:10px 15px; border-radius:50%; cursor:pointer; font-size:18px; box-shadow:0 0 10px rgba(0,0,0,0.3);}
+.dark {background:linear-gradient(135deg,#1a1a1a,#333); color:#ddd;}
+.dark nav {background:rgba(255,255,255,0.1);}
+.dark footer {background:rgba(255,255,255,0.1);}
+@keyframes fadeIn {from {opacity:0;} to {opacity:1;}}
+form {display:flex; flex-direction:column; gap:10px; margin-top:20px;}
+input, textarea {padding:10px; border-radius:10px; border:none; outline:none;}
+textarea {resize:none; height:100px;}
+.xo-board {display:grid; grid-template-columns:repeat(3,100px); grid-gap:10px; justify-content:center; margin:20px auto;}
+.cell {width:100px; height:100px; background:rgba(255,255,255,0.2); font-size:50px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:0.3s;}
+.cell:hover {background:rgba(255,255,255,0.4);}
+#gameStatus {font-size:22px; margin-top:15px;}
+#resetBtn {margin-top:15px; padding:10px 20px; font-size:16px; border-radius:20px; cursor:pointer; background:yellow; color:black;}
+</style>
+<script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <nav>
-    <a href="#home" class="lang" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a>
-    <a href="#about" class="lang" data-ar="👤 عني" data-en="👤 About">👤 عني</a>
-    <a href="#fun" class="lang" data-ar="🎮 رفاهية" data-en="🎮 Fun">🎮 رفاهية</a>
-    <a href="#contact" class="lang" data-ar="📩 تواصل" data-en="📩 Contact">📩 تواصل</a>
-  </nav>
 
-  <header id="home" class="lang" data-ar="👋 أهلاً بيكم في موقع رضا" data-en="👋 Welcome to Reda's Website">
-    👋 أهلاً بيكم في موقع رضا
-  </header>
+<nav>
+  <a href="#home" class="lang" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a>
+  <a href="#about" class="lang" data-ar="👤 عني" data-en="👤 About">👤 عني</a>
+  <a href="#fun" class="lang" data-ar="🎮 رفاهية" data-en="🎮 Fun">🎮 رفاهية</a>
+  <a href="#contact" class="lang" data-ar="📩 تواصل" data-en="📩 Contact">📩 تواصل</a>
+</nav>
 
-  <section>
-    <p class="lang" data-ar="ده أول موقع بسيط معمول باستخدام GitHub Pages." data-en="This is my first simple website using GitHub Pages.">
-       ده أول موقع بسيط معمول باستخدام GitHub Pages.
-    </p>
-    <p class="lang" data-ar="تقدر تعدل عليه وتخلي شكله زي ما تحب." data-en="You can edit it and make it look the way you like.">
-       تقدر تعدل عليه وتخلي شكله زي ما تحب.
-    </p>
-  </section>
+<header id="home" class="lang" data-ar="👋 أهلاً بيكم في موقع رضا" data-en="👋 Welcome to Reda's Website">
+👋 أهلاً بيكم في موقع رضا
+</header>
 
-  <section id="about">
-    <h2 class="lang" data-ar="👤 عني" data-en="👤 About Me">👤 عني</h2>
-    <p class="lang" data-ar="أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم." data-en="I’m Reda, a beginner web developer. I love learning and experimenting with coding and design.">
-       أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم.
-    </p>
-  </section>
+<section>
+<p class="lang" data-ar="ده أول موقع بسيط معمول باستخدام GitHub Pages." data-en="This is my first simple website using GitHub Pages.">ده أول موقع بسيط معمول باستخدام GitHub Pages.</p>
+<p class="lang" data-ar="تقدر تعدل عليه وتخلي شكله زي ما تحب." data-en="You can edit it and make it look the way you like.">تقدر تعدل عليه وتخلي شكله زي ما تحب.</p>
+</section>
 
-  <!-- قسم رفاهية / لعبة X و O -->
-  <section id="fun">
-    <h2 class="lang" data-ar="🎮 رفاهية" data-en="🎮 Fun">🎮 رفاهية</h2>
-    <p class="lang" data-ar="جرب تلعب X و O واستمتع!" data-en="Try playing Tic Tac Toe and have fun!">
-      جرب تلعب X و O واستمتع!
-    </p>
+<section id="about">
+<h2 class="lang" data-ar="👤 عني" data-en="👤 About Me">👤 عني</h2>
+<p class="lang" data-ar="أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم." data-en="I’m Reda, a beginner web developer. I love learning and experimenting with coding and design.">أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم.</p>
+</section>
 
-    <div id="ticTacToe">
-      <div class="board">
-        <div class="cell" data-index="0"></div>
-        <div class="cell" data-index="1"></div>
-        <div class="cell" data-index="2"></div>
-        <div class="cell" data-index="3"></div>
-        <div class="cell" data-index="4"></div>
-        <div class="cell" data-index="5"></div>
-        <div class="cell" data-index="6"></div>
-        <div class="cell" data-index="7"></div>
-        <div class="cell" data-index="8"></div>
-      </div>
-      <button onclick="resetGame()">إعادة اللعب / Restart</button>
-      <div id="gameStatus"></div>
-    </div>
-  </section>
+<section id="fun">
+<h2 class="lang" data-ar="🎮 رفاهية - لعبة X و O" data-en="🎮 Fun - Tic Tac Toe">🎮 رفاهية - لعبة X و O</h2>
+<div class="xo-board">
+<div class="cell" data-index="0"></div>
+<div class="cell" data-index="1"></div>
+<div class="cell" data-index="2"></div>
+<div class="cell" data-index="3"></div>
+<div class="cell" data-index="4"></div>
+<div class="cell" data-index="5"></div>
+<div class="cell" data-index="6"></div>
+<div class="cell" data-index="7"></div>
+<div class="cell" data-index="8"></div>
+</div>
+<div id="gameStatus">دور: X / Turn: X</div>
+<button id="resetBtn">إعادة اللعبة / Reset Game</button>
+</section>
 
-  <section id="contact">
-    <h2 class="lang" data-ar="📩 تواصل معي" data-en="📩 Contact Me">📩 تواصل معي</h2>
-    <p class="lang" data-ar="ممكن تتواصل معايا عن طريق:" data-en="You can reach me via:">
-       ممكن تتواصل معايا عن طريق:
-    </p>
-    <p>📞 01152424287</p>
-    <div class="socials">
-      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-      <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
-    </div>
+<section id="contact">
+<h2 class="lang" data-ar="📩 تواصل معي" data-en="📩 Contact Me">📩 تواصل معي</h2>
+<p class="lang" data-ar="ممكن تتواصل معايا عن طريق:" data-en="You can reach me via:">ممكن تتواصل معايا عن طريق:</p>
+<p>📞 01152424287</p>
+<div class="socials">
+<a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+<a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+<a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+</div>
+<form onsubmit="sendMessage(event)">
+<input type="text" placeholder="الاسم" required>
+<input type="email" placeholder="الإيميل" required>
+<textarea placeholder="اكتب رسالتك..." required></textarea>
+<button type="submit">📨 إرسال</button>
+</form>
+</section>
 
-    <form onsubmit="sendMessage(event)">
-      <input type="text" placeholder="الاسم" required>
-      <input type="email" placeholder="الإيميل" required>
-      <textarea placeholder="اكتب رسالتك..." required></textarea>
-      <button type="submit">📨 إرسال</button>
-    </form>
-  </section>
+<div>
+<button onclick="setLang('ar')">🇸🇦 عربي</button>
+<button onclick="setLang('en')">🇬🇧 English</button>
+<button onclick="toggleDark()">🌙/☀️ وضع ليلي</button>
+</div>
 
-  <div>
-    <button onclick="setLang('ar')">🇸🇦 عربي</button>
-    <button onclick="setLang('en')">🇬🇧 English</button>
-    <button onclick="toggleDark()">🌙/☀️ وضع ليلي</button>
-  </div>
+<footer class="lang" data-ar="&copy; 2025 - رضا راجد" data-en="&copy; 2025 - Rida Ragd">&copy; 2025 - رضا راجد</footer>
+<button id="toTop" onclick="scrollToTop()">⬆</button>
 
-  <footer class="lang" data-ar="&copy; 2025 - رضا راجد" data-en="&copy; 2025 - Rida Ragd">
-    &copy; 2025 - رضا راجد
-  </footer>
+<script>
+function setLang(lang){
+document.querySelectorAll('.lang').forEach(el => el.innerHTML=el.getAttribute('data-'+lang));
+document.body.dir=(lang==='ar')?'rtl':'ltr';
+}
 
-  <button id="toTop" onclick="scrollToTop()">⬆</button>
+function toggleDark(){document.body.classList.toggle("dark");}
+window.onscroll=function(){document.getElementById("toTop").style.display=(document.documentElement.scrollTop>200)?"block":"none";}
+function scrollToTop(){window.scrollTo({top:0, behavior:'smooth'});}
+function sendMessage(e){e.preventDefault();alert("✅ تم إرسال رسالتك بنجاح! (محاكاة فقط)");}
 
-  <script>
-    // الترجمة
-    function setLang(lang) {
-      document.querySelectorAll('.lang').forEach(el => {
-        el.innerHTML = el.getAttribute('data-' + lang);
-      });
-      document.body.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-    }
+// لعبة X و O
+let board=["","","","","","","","",""];
+let turn="X";
+const cells=document.querySelectorAll(".cell");
+const statusDiv=document.getElementById("gameStatus");
+const resetBtn=document.getElementById("resetBtn");
 
-    function toggleDark() {
-      document.body.classList.toggle("dark");
-    }
+function checkWinner(){
+const winCombos=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+for(let combo of winCombos){const [a,b,c]=combo;if(board[a]&&board[a]===board[b]&&board[a]===board[c]) return board[a];}
+return board.includes("")?null:"Tie";
+}
 
-    window.onscroll = function() {
-      document.getElementById("toTop").style.display = 
-        (document.documentElement.scrollTop > 200) ? "block" : "none";
-    };
+function updateBoard(){
+cells.forEach((cell,i)=>cell.textContent=board[i]);
+let winner=checkWinner();
+if(winner){
+if(winner==="Tie"){statusDiv.textContent="تعادل / Tie";}
+else{statusDiv.textContent="اللاعب "+winner+" فاز! / Player "+winner+" wins!";}
+}else{statusDiv.textContent="دور: "+turn+" / Turn: "+turn;}
+}
 
-    function scrollToTop() {
-      window.scrollTo({top: 0, behavior: 'smooth'});
-    }
+cells.forEach(cell=>cell.addEventListener("click",()=>{
+let i=parseInt(cell.getAttribute("data-index"));
+if(!board[i]&&checkWinner()===null){board[i]=turn; turn=(turn==="X")?"O":"X"; updateBoard();}
+}));
 
-    function sendMessage(e) {
-      e.preventDefault();
-      alert("✅ تم إرسال رسالتك بنجاح! (محاكاة فقط)");
-    }
+resetBtn.addEventListener("click",()=>{board=["","","","","","","","",""]; turn="X"; updateBoard();});
 
-    // لعبة X و O
-    let board = ["","","","","","","","",""];
-    let turn = "X";
-    const cells = document.querySelectorAll(".cell");
-    const statusDiv = document.getElementById("gameStatus");
-
-    function checkWinner() {
-      const winCombos = [
-        [0,1,2],[3,4,5],[6,7,8],
-        [0,3,6],[1,4,7],[2,5,8],
-        [0,4,8],[2,4,6]
-      ];
-      for (let combo of winCombos) {
-        const [a,b,c] = combo;
-        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-          statusDiv.textContent = `${board[a]} فاز! / ${board[a]} Wins!`;
-          return true;
-        }
-      }
-      if (!board.includes("")) {
-        statusDiv.textContent = `تعادل! / Draw!`;
-        return true;
-      }
-      return false;
-    }
-
-    cells.forEach(cell => {
-      cell.addEventListener("click", () => {
-        const idx = cell.getAttribute("data-index");
-        if (board[idx] === "" && !checkWinner()) {
-          board[idx] = turn;
-          cell.textContent = turn;
-          if (!checkWinner()) turn = (turn === "X") ? "O" :
+updateBoard();
+</script>
+</body>
+</html>
