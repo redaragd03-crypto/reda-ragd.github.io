@@ -44,15 +44,6 @@
       animation: fadeIn 2s ease-in-out;
     }
 
-    /* صورة البروفايل */
-    .profile-img {
-      width: 250px;
-      height: auto;
-      border-radius: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    }
-
     section {
       padding: 50px 20px;
       max-width: 800px;
@@ -132,7 +123,6 @@
       to {opacity: 1;}
     }
 
-    /* فورم التواصل */
     form {
       display: flex;
       flex-direction: column;
@@ -149,6 +139,36 @@
       resize: none;
       height: 100px;
     }
+
+    /* لعبة X و O */
+    #ticTacToe {
+      margin-top: 30px;
+    }
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-gap: 5px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .cell {
+      width: 100px;
+      height: 100px;
+      background: rgba(255,255,255,0.2);
+      font-size: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .cell:hover {
+      background: rgba(255,255,255,0.4);
+    }
+    #gameStatus {
+      margin-top: 10px;
+      font-size: 18px;
+    }
   </style>
   <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
 </head>
@@ -156,38 +176,57 @@
   <nav>
     <a href="#home" class="lang" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a>
     <a href="#about" class="lang" data-ar="👤 عني" data-en="👤 About">👤 عني</a>
+    <a href="#fun" class="lang" data-ar="🎮 رفاهية" data-en="🎮 Fun">🎮 رفاهية</a>
     <a href="#contact" class="lang" data-ar="📩 تواصل" data-en="📩 Contact">📩 تواصل</a>
   </nav>
 
   <header id="home" class="lang" data-ar="👋 أهلاً بيكم في موقع رضا" data-en="👋 Welcome to Reda's Website">
-    <!-- الصورة -->
-    <img src="reda.jpg" alt="Reda" class="profile-img">
     👋 أهلاً بيكم في موقع رضا
   </header>
 
   <section>
-    <p class="lang" data-ar="ده أول موقع بسيط معمول باستخدام GitHub Pages." 
-       data-en="This is my first simple website using GitHub Pages.">
+    <p class="lang" data-ar="ده أول موقع بسيط معمول باستخدام GitHub Pages." data-en="This is my first simple website using GitHub Pages.">
        ده أول موقع بسيط معمول باستخدام GitHub Pages.
     </p>
-    <p class="lang" data-ar="تقدر تعدل عليه وتخلي شكله زي ما تحب." 
-       data-en="You can edit it and make it look the way you like.">
+    <p class="lang" data-ar="تقدر تعدل عليه وتخلي شكله زي ما تحب." data-en="You can edit it and make it look the way you like.">
        تقدر تعدل عليه وتخلي شكله زي ما تحب.
     </p>
   </section>
 
   <section id="about">
     <h2 class="lang" data-ar="👤 عني" data-en="👤 About Me">👤 عني</h2>
-    <p class="lang" data-ar="أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم." 
-       data-en="I’m Reda, a beginner web developer. I love learning and experimenting with coding and design.">
+    <p class="lang" data-ar="أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم." data-en="I’m Reda, a beginner web developer. I love learning and experimenting with coding and design.">
        أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم.
     </p>
   </section>
 
+  <!-- قسم رفاهية / لعبة X و O -->
+  <section id="fun">
+    <h2 class="lang" data-ar="🎮 رفاهية" data-en="🎮 Fun">🎮 رفاهية</h2>
+    <p class="lang" data-ar="جرب تلعب X و O واستمتع!" data-en="Try playing Tic Tac Toe and have fun!">
+      جرب تلعب X و O واستمتع!
+    </p>
+
+    <div id="ticTacToe">
+      <div class="board">
+        <div class="cell" data-index="0"></div>
+        <div class="cell" data-index="1"></div>
+        <div class="cell" data-index="2"></div>
+        <div class="cell" data-index="3"></div>
+        <div class="cell" data-index="4"></div>
+        <div class="cell" data-index="5"></div>
+        <div class="cell" data-index="6"></div>
+        <div class="cell" data-index="7"></div>
+        <div class="cell" data-index="8"></div>
+      </div>
+      <button onclick="resetGame()">إعادة اللعب / Restart</button>
+      <div id="gameStatus"></div>
+    </div>
+  </section>
+
   <section id="contact">
     <h2 class="lang" data-ar="📩 تواصل معي" data-en="📩 Contact Me">📩 تواصل معي</h2>
-    <p class="lang" data-ar="ممكن تتواصل معايا عن طريق:" 
-       data-en="You can reach me via:">
+    <p class="lang" data-ar="ممكن تتواصل معايا عن طريق:" data-en="You can reach me via:">
        ممكن تتواصل معايا عن طريق:
     </p>
     <p>📞 01152424287</p>
@@ -197,7 +236,6 @@
       <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
     </div>
 
-    <!-- نموذج تواصل -->
     <form onsubmit="sendMessage(event)">
       <input type="text" placeholder="الاسم" required>
       <input type="email" placeholder="الإيميل" required>
@@ -216,10 +254,10 @@
     &copy; 2025 - رضا راجد
   </footer>
 
-  <!-- زر الرجوع للأعلى -->
   <button id="toTop" onclick="scrollToTop()">⬆</button>
 
   <script>
+    // الترجمة
     function setLang(lang) {
       document.querySelectorAll('.lang').forEach(el => {
         el.innerHTML = el.getAttribute('data-' + lang);
@@ -244,6 +282,37 @@
       e.preventDefault();
       alert("✅ تم إرسال رسالتك بنجاح! (محاكاة فقط)");
     }
-  </script>
-</body>
-</html>
+
+    // لعبة X و O
+    let board = ["","","","","","","","",""];
+    let turn = "X";
+    const cells = document.querySelectorAll(".cell");
+    const statusDiv = document.getElementById("gameStatus");
+
+    function checkWinner() {
+      const winCombos = [
+        [0,1,2],[3,4,5],[6,7,8],
+        [0,3,6],[1,4,7],[2,5,8],
+        [0,4,8],[2,4,6]
+      ];
+      for (let combo of winCombos) {
+        const [a,b,c] = combo;
+        if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+          statusDiv.textContent = `${board[a]} فاز! / ${board[a]} Wins!`;
+          return true;
+        }
+      }
+      if (!board.includes("")) {
+        statusDiv.textContent = `تعادل! / Draw!`;
+        return true;
+      }
+      return false;
+    }
+
+    cells.forEach(cell => {
+      cell.addEventListener("click", () => {
+        const idx = cell.getAttribute("data-index");
+        if (board[idx] === "" && !checkWinner()) {
+          board[idx] = turn;
+          cell.textContent = turn;
+          if (!checkWinner()) turn = (turn === "X") ? "O" :
