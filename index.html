@@ -57,19 +57,19 @@ textarea {resize:none; height:100px;}
 </section>
 
 <section id="fun">
-<h2 class="lang" data-ar="🎮 رفاهية - لعبة X و O" data-en="🎮 Fun - Tic Tac Toe">🎮 رفاهية - لعبة X و O</h2>
+<h2 class="lang" data-ar="🎮 رفاهية - لعبة X و O مع روبوت ذكي" data-en="🎮 Fun - Tic Tac Toe with Smart AI">🎮 رفاهية - لعبة X و O مع روبوت ذكي</h2>
 <div class="xo-board">
-<div class="cell" data-index="0"></div>
-<div class="cell" data-index="1"></div>
-<div class="cell" data-index="2"></div>
-<div class="cell" data-index="3"></div>
-<div class="cell" data-index="4"></div>
-<div class="cell" data-index="5"></div>
-<div class="cell" data-index="6"></div>
-<div class="cell" data-index="7"></div>
-<div class="cell" data-index="8"></div>
+  <div class="cell" data-index="0"></div>
+  <div class="cell" data-index="1"></div>
+  <div class="cell" data-index="2"></div>
+  <div class="cell" data-index="3"></div>
+  <div class="cell" data-index="4"></div>
+  <div class="cell" data-index="5"></div>
+  <div class="cell" data-index="6"></div>
+  <div class="cell" data-index="7"></div>
+  <div class="cell" data-index="8"></div>
 </div>
-<div id="gameStatus">دور: X / Turn: X</div>
+<div id="gameStatus">دور: أنت / X</div>
 <button id="resetBtn">إعادة اللعبة / Reset Game</button>
 </section>
 
@@ -100,16 +100,20 @@ textarea {resize:none; height:100px;}
 <button id="toTop" onclick="scrollToTop()">⬆</button>
 
 <script>
-function setLang(lang){document.querySelectorAll('.lang').forEach(el => el.innerHTML=el.getAttribute('data-'+lang));document.body.dir=(lang==='ar')?'rtl':'ltr';}
+function setLang(lang){
+  document.querySelectorAll('.lang').forEach(el => el.innerHTML=el.getAttribute('data-'+lang));
+  document.body.dir=(lang==='ar')?'rtl':'ltr';
+}
 function toggleDark(){document.body.classList.toggle("dark");}
 window.onscroll=function(){document.getElementById("toTop").style.display=(document.documentElement.scrollTop>200)?"block":"none";}
 function scrollToTop(){window.scrollTo({top:0, behavior:'smooth'});}
 function sendMessage(e){e.preventDefault();alert("✅ تم إرسال رسالتك بنجاح! (محاكاة فقط)");}
 
-// لعبة X و O محسنة
+// لعبة X و O ضد روبوت ذكي
 document.addEventListener("DOMContentLoaded", function(){
   let board=["","","","","","","","",""];
-  let turn="X";
+  const player="X";
+  const ai="O";
   const cells=document.querySelectorAll(".cell");
   const statusDiv=document.getElementById("gameStatus");
   const resetBtn=document.getElementById("resetBtn");
@@ -128,24 +132,40 @@ document.addEventListener("DOMContentLoaded", function(){
     let winner=checkWinner();
     if(winner){
       if(winner==="Tie"){statusDiv.textContent="تعادل / Tie";}
-      else{statusDiv.textContent="اللاعب "+winner+" فاز! / Player "+winner+" wins!";}
+      else if(winner===player){statusDiv.textContent="لقد فزت! / You win!";}
+      else{statusDiv.textContent="الروبوت فاز! / AI wins!";}
     }else{
-      statusDiv.textContent="دور: "+turn+" / Turn: "+turn;
+      statusDiv.textContent="دور: أنت / X";
+    }
+  }
+
+  function aiMove(){
+    // حاول الفوز
+    for(let i=0;i<9;i++){
+      if(board[i]===""){ board[i]=ai; if(checkWinner()===ai){ return; } board[i]=""; }
+    }
+    // حاول منع اللاعب
+    for(let i=0;i<9;i++){
+      if(board[i]===""){ board[i]=player; if(checkWinner()===player){ board[i]=ai; return; } board[i]=""; }
+    }
+    // اختر عشوائي
+    let emptyIndices = board.map((v,i)=>v===""?i:null).filter(v=>v!==null);
+    if(emptyIndices.length>0){
+      board[emptyIndices[Math.floor(Math.random()*emptyIndices.length)]] = ai;
     }
   }
 
   cells.forEach(cell=>cell.addEventListener("click", ()=>{
     let i=parseInt(cell.getAttribute("data-index"));
-    if(!board[i] && checkWinner()===null){
-      board[i]=turn;
-      turn=(turn==="X")?"O":"X";
+    if(board[i]==="" && !checkWinner()){
+      board[i]=player;
+      if(!checkWinner()){ aiMove(); }
       updateBoard();
     }
   }));
 
   resetBtn.addEventListener("click", ()=>{
     board=["","","","","","","","",""];
-    turn="X";
     updateBoard();
   });
 
