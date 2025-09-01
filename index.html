@@ -3,65 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>موقعي - رضا</title>
+<title>موقعي الشخصي - رضا</title>
 <style>
-body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#ff9966,#66ccff);color:white;text-align:center;transition:.5s}
-.login-container{max-width:400px;margin:80px auto;padding:30px;background:rgba(0,0,0,0.5);border-radius:15px;box-shadow:0 0 15px rgba(0,0,0,0.3)}
-.login-container h2{margin-bottom:20px;font-size:24px}
-input{width:100%;padding:12px;margin:8px 0;border-radius:8px;border:none;outline:none;font-size:16px}
-button{width:100%;padding:12px;margin:8px 0;border-radius:20px;border:none;font-size:16px;cursor:pointer;background:#28a745;color:white;transition:.3s}
-button:hover{background:#218838}
-#mainContent{display:none}
-nav{display:flex;justify-content:center;gap:15px;background:rgba(0,0,0,.3);padding:10px;position:sticky;top:0;z-index:1000}
-nav a{color:white;text-decoration:none;font-size:16px;transition:.3s}nav a:hover{color:yellow;transform:scale(1.1)}
-header{padding:30px;font-size:28px;font-weight:bold;text-shadow:1px 1px 3px rgba(0,0,0,.3)}
-section{padding:40px 20px;max-width:700px;margin:auto}
-textarea{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:none;outline:none;height:80px;resize:none}
-#messagesList{max-width:500px;margin:auto;text-align:left;color:#000;background:white;padding:10px;border-radius:8px}
-.xo-board{display:grid;grid-template-columns:repeat(3,80px);grid-gap:8px;justify-content:center;margin:15px auto}
-.cell{width:80px;height:80px;background:rgba(255,255,255,.2);font-size:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}
-.cell:hover{background:rgba(255,255,255,.4)}
-#snakeCanvas{background:black;margin:15px auto;display:block;border:2px solid yellow}
-#toTop{display:none;position:fixed;bottom:20px;right:20px;background:yellow;color:black;border:none;padding:10px;border-radius:50%}
-.dark{background:linear-gradient(135deg,#1a1a1a,#333)}
-.dark nav{background:rgba(255,255,255,.1)}
+body{font-family:'Segoe UI',Tahoma,Verdana,sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#ff9966,#66ccff);color:white;text-align:center;transition:.5s}
+nav{display:flex;justify-content:center;gap:20px;background:rgba(0,0,0,.3);padding:15px;position:sticky;top:0;z-index:1000}
+nav a{color:white;text-decoration:none;font-size:18px;transition:.3s}
+nav a:hover{color:yellow;transform:scale(1.1)}
+section{padding:50px 20px;max-width:800px;margin:auto}
+button{background:white;color:#333;border:none;padding:10px 20px;margin:10px;border-radius:25px;cursor:pointer;font-size:16px;transition:.3s}
+button:hover{background:#333;color:white;transform:scale(1.1)}
+input,textarea{padding:10px;margin:5px;width:250px;border-radius:5px;border:1px solid #ccc;outline:none}
+#toTop{display:none;position:fixed;bottom:20px;right:20px;background:yellow;color:black;border:none;padding:10px 15px;border-radius:50%;cursor:pointer;font-size:18px;box-shadow:0 0 10px rgba(0,0,0,.3)}
 </style>
 </head>
 <body>
 
-<!-- صفحة تسجيل الدخول -->
-<div id="loginSection" class="login-container">
-<h2>تسجيل الدخول أو إنشاء حساب</h2>
-<input type="email" id="signupEmail" placeholder="📧 البريد الإلكتروني">
-<input type="password" id="signupPassword" placeholder="🔑 كلمة المرور">
+<header>
+<h1>🎮 موقعي الشخصي - رضا</h1>
+</header>
+
+<!-- قسم تسجيل وإنشاء حساب -->
+<section id="authSection">
+<h2>إنشاء حساب جديد</h2>
+<input type="email" id="signupEmail" placeholder="📧 البريد الإلكتروني"><br>
+<input type="password" id="signupPassword" placeholder="🔑 كلمة المرور"><br>
 <button onclick="signupUser()">تسجيل جديد</button>
-<hr style="margin:10px 0;border-color:white">
-<input type="email" id="loginEmail" placeholder="📧 البريد الإلكتروني">
-<input type="password" id="loginPassword" placeholder="🔑 كلمة المرور">
+
+<h2>تسجيل دخول</h2>
+<input type="email" id="loginEmail" placeholder="📧 البريد الإلكتروني"><br>
+<input type="password" id="loginPassword" placeholder="🔑 كلمة المرور"><br>
 <button onclick="loginUser()">دخول</button>
-<h3 id="userStatus" style="color:yellow;">لم يتم تسجيل الدخول</h3>
-</div>
-
-<!-- محتوى الموقع -->
-<div id="mainContent">
-<nav>
-<a href="#home">🏠 الرئيسية</a>
-<a href="#about">👤 عني</a>
-<a href="#fun">🎮 رفاهية</a>
-<a href="#blog">📝 المدونة</a>
-<a href="#contact">📩 تواصل</a>
-<a href="#messages">📬 رسائل</a>
 <button onclick="logoutUser()">🚪 تسجيل خروج</button>
-</nav>
 
-<header id="home">👋 أهلاً بيكم في موقع رضا</header>
-
-<section id="about">
-<h2>👤 عني</h2>
-<p>أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم.</p>
+<h3 id="userStatus" style="color:lightgreen;">لم يتم تسجيل الدخول</h3>
 </section>
 
-<section id="fun">
+<!-- قسم الألعاب -->
+<section id="fun" style="display:none">
 <h2>🎮 رفاهية - اختر لعبتك</h2>
 <button onclick="showGame('xo')">X و O</button>
 <button onclick="showGame('snake')">Snake</button>
@@ -78,7 +56,7 @@ textarea{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:none;outl
 
 <div id="snakeGame" style="display:none">
 <canvas id="snakeCanvas" width="300" height="300"></canvas>
-<div>
+<div id="snakeControls">
 <button onclick="changeDirection(0,-1)">⬆</button><br>
 <button onclick="changeDirection(-1,0)">⬅</button>
 <button onclick="changeDirection(1,0)">➡</button><br>
@@ -87,116 +65,189 @@ textarea{width:100%;padding:10px;margin:5px 0;border-radius:8px;border:none;outl
 </div>
 </section>
 
-<section id="blog">
-<h2>📝 المدونة</h2>
-<textarea placeholder="✍️ اكتب مقالك هنا..."></textarea>
-<button onclick="alert('✅ تم الحفظ (محاكاة)')">💾 حفظ</button>
-</section>
-
-<section id="contact">
-<h2>📩 تواصل معي</h2>
-<p>📞 01152424287</p>
-</section>
-
-<section id="messages">
-<h2>📬 الرسائل الخاصة</h2>
-<textarea id="userMessage" placeholder="اكتب رسالتك هنا..."></textarea>
+<!-- قسم الرسائل -->
+<section id="messagesSection" style="display:none">
+<h2>📩 رسائل المستخدم</h2>
+<textarea id="userMessage" placeholder="اكتب رسالتك هنا..."></textarea><br>
 <button onclick="sendMessage()">إرسال</button>
-<div id="messagesList"></div>
+<div id="messages"></div>
 </section>
 
-<button onclick="toggleDark()">🌙/☀️ وضع ليلي</button>
-<button id="toTop" onclick="scrollToTop()">⬆</button>
-</div>
-
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
 <script>
-// Firebase
-const firebaseConfig={
-  apiKey:"AIzaSyAe61P8lmdAQNYIhqIZ__xxYDmYlLhhiBw",
-  authDomain:"reda-ragd.firebaseapp.com",
-  databaseURL:"https://reda-ragd-default-rtdb.firebaseio.com/",
-  projectId:"reda-ragd",
-  storageBucket:"reda-ragd.firebasestorage.app",
-  messagingSenderId:"807567430584",
-  appId:"1:807567430584:web:93a27b3e13266582e9754d"
+// إعداد Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyAe61P8lmdAQNYIhqIZ__xxYDmYlLhhiBw",
+  authDomain: "reda-ragd.firebaseapp.com",
+  projectId: "reda-ragd",
+  storageBucket: "reda-ragd.firebasestorage.app",
+  messagingSenderId: "807567430584",
+  appId: "1:807567430584:web:93a27b3e13266582e9754d",
+  databaseURL: "https://reda-ragd-default-rtdb.firebaseio.com/"
 };
 firebase.initializeApp(firebaseConfig);
-const auth=firebase.auth(),db=firebase.database();
+const auth = firebase.auth();
+const db = firebase.database();
 
-// إنشاء حساب جديد + تسجيل تلقائي + مجلد
+// دوال تسجيل الدخول والإنشاء
 function signupUser(){
-let e=document.getElementById("signupEmail").value,p=document.getElementById("signupPassword").value;
-auth.createUserWithEmailAndPassword(e,p)
-.then(user=>{
-db.ref("users/"+user.user.uid).set({email:user.user.email,createdAt:new Date().toLocaleString()});
-showMainContent(user.user.email);
-alert("✅ تم إنشاء الحساب والدخول تلقائيًا: "+user.user.email);
-}).catch(err=>alert("❌ خطأ: "+err.message));
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+  auth.createUserWithEmailAndPassword(email,password)
+    .then(user=>{
+      alert("✅ تم إنشاء الحساب: "+user.user.email);
+    })
+    .catch(err=>alert("❌ خطأ: "+err.message));
 }
 
-// تسجيل دخول
 function loginUser(){
-let e=document.getElementById("loginEmail").value,p=document.getElementById("loginPassword").value;
-if(auth.currentUser){
-auth.signOut().then(()=>doLogin());
-}else doLogin();
-function doLogin(){
-auth.signInWithEmailAndPassword(e,p)
-.then(user=>{showMainContent(user.user.email);})
-.catch(err=>alert("❌ خطأ: "+err.message));
-}
-}
-
-// عرض المحتوى بعد تسجيل الدخول
-function showMainContent(email){
-document.getElementById("userStatus").innerText="✔️ مسجل دخول كـ: "+email;
-document.getElementById("loginSection").style.display="none";
-document.getElementById("mainContent").style.display="block";
-loadMessages();
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+  auth.signInWithEmailAndPassword(email,password)
+    .then(user=>{
+      document.getElementById("userStatus").innerText="✔️ مسجل دخول كـ: "+user.user.email;
+      document.getElementById("fun").style.display="block";
+      document.getElementById("messagesSection").style.display="block";
+      loadMessages();
+    })
+    .catch(err=>alert("❌ خطأ: "+err.message));
 }
 
-// تسجيل خروج
 function logoutUser(){
-auth.signOut().then(()=>{
-document.getElementById("mainContent").style.display="none";
-document.getElementById("loginSection").style.display="block";
-document.getElementById("userStatus").innerText="🚪 تم تسجيل الخروج";
-});
+  auth.signOut().then(()=>{
+    document.getElementById("userStatus").innerText="🚪 تم تسجيل الخروج";
+    document.getElementById("fun").style.display="none";
+    document.getElementById("messagesSection").style.display="none";
+  });
 }
 
-// الرسائل
-function sendMessage(){let m=document.getElementById("userMessage").value,u=auth.currentUser;if(!u){alert("❌ سجل دخول أولاً");return}if(m.trim()==="")return;db.ref("users/"+u.uid+"/messages").push().set({text:m,time:new Date().toLocaleString()});document.getElementById("userMessage").value="";}
-function loadMessages(){let u=auth.currentUser;if(!u) return;const msgDiv=document.getElementById("messagesList");db.ref("users/"+u.uid+"/messages").on("value",snapshot=>{msgDiv.innerHTML="";snapshot.forEach(c=>{let d=c.val();msgDiv.innerHTML+=`<div><b>أنت</b><br>${d.text}<br><small>${d.time}</small></div>`;});});}
+// دوال الرسائل
+function sendMessage(){
+  const message = document.getElementById("userMessage").value;
+  const user = auth.currentUser;
+  if(!user){alert("❌ لازم تسجل دخول أولاً"); return;}
+  if(message.trim()==="") return;
+  const msgRef = db.ref("messages").push();
+  msgRef.set({email:user.email,text:message,time:new Date().toLocaleString()});
+  document.getElementById("userMessage").value="";
+}
 
-// لغة + الوضع الليلي
-function toggleDark(){document.body.classList.toggle("dark")}
-window.onscroll=()=>document.getElementById("toTop").style.display=window.scrollY>200?"block":"none";
-function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+function loadMessages(){
+  const msgDiv = document.getElementById("messages");
+  db.ref("messages").on("value",snapshot=>{
+    msgDiv.innerHTML="";
+    snapshot.forEach(child=>{
+      const data = child.val();
+      msgDiv.innerHTML+=`<div style="background:#fff;color:#000;padding:8px;margin:5px;border-radius:5px;"><b>${data.email}</b><br>${data.text}<br><small>${data.time}</small></div>`;
+    });
+  });
+}
+</script>
+<!-- قسم رفع الفيديوهات (Admin فقط) -->
+<section id="uploadSection" style="display:none">
+  <h2>🎬 رفع فيديو جديد (Admin فقط)</h2>
+  <input type="file" id="videoFile" accept="video/*">
+  <button onclick="uploadVideo()">رفع الفيديو</button>
+</section>
 
-// الألعاب
-function showGame(n){document.getElementById('xoGame').style.display=n==='xo'?'block':'none';document.getElementById('snakeGame').style.display=n==='snake'?'block':'none';}
-// XO
-let board=Array(9).fill(''),player='X',ai='O',cells=document.querySelectorAll('#xoGame .cell'),status=document.getElementById('gameStatus');
-function checkWin(){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let [a,b,c] of w)if(board[a]&&board[a]==board[b]&&board[a]==board[c])return board[a];return board.includes('')?null:'Tie';}
-function update(){cells.forEach((c,i)=>c.textContent=board[i]);let w=checkWin();status.textContent=w?w==='Tie'?'تعادل':'الفائز: '+w:'دورك: X';}
-function aiMove(){for(let i=0;i<9;i++)if(board[i]===''){board[i]=ai;break}}
-cells.forEach((c,i)=>c.onclick=()=>{if(board[i]===''&&!checkWin()){board[i]=player;if(!checkWin())aiMove();update();}});
-document.getElementById('resetBtn').onclick=()=>{board.fill('');update();};update();
-// Snake
-const canvas=document.getElementById('snakeCanvas'),ctx=canvas.getContext('2d');let snake=[{x:10,y:10}],dx=1,dy=0,food={x:5,y:5},size=15;
-function draw(){ctx.fillStyle='black';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='lime';snake.forEach(s=>ctx.fillRect(s.x*size,s.y*size,size-2,size-2));ctx.fillStyle='red';ctx.fillRect(food.x*size,food.y*size,size-2,size-2);}
-function move(){let head={x:snake[0].x+dx,y:snake[0].y+dy};snake.unshift(head);if(head.x==food.x&&head.y==food.y){food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}}else snake.pop();if(head.x<0||head.y<0||head.x*size>=canvas.width||head.y*size>=canvas.height||snake.slice(1).some(s=>s.x==head.x&&s.y==head.y)){snake=[{x:10,y:10}];dx=1;dy=0;}draw();}
-setInterval(move,200);
-document.addEventListener('keydown',e=>{
-  if(e.key=="ArrowUp"&&dy==0){dx=0;dy=-1}
-  else if(e.key=="ArrowDown"&&dy==0){dx=0;dy=1}
-  else if(e.key=="ArrowLeft"&&dx==0){dx=-1;dy=0}
-  else if(e.key=="ArrowRight"&&dx==0){dx=1;dy=0}
+<!-- قسم عرض الفيديوهات -->
+<section id="videosSection">
+  <h2>🎬 فيديوهات الموقع</h2>
+  <div id="videosContainer"></div>
+</section>
+
+<!-- الألعاب (XO و Snake) -->
+<section id="games" style="display:none">
+<div id="xoGame" style="display:none">
+  <div class="xo-board">
+    <div class="cell" data-index="0"></div><div class="cell" data-index="1"></div><div class="cell" data-index="2"></div>
+    <div class="cell" data-index="3"></div><div class="cell" data-index="4"></div><div class="cell" data-index="5"></div>
+    <div class="cell" data-index="6"></div><div class="cell" data-index="7"></div><div class="cell" data-index="8"></div>
+  </div>
+  <div id="gameStatus">دورك: X</div>
+  <button id="resetBtn">إعادة اللعبة</button>
+</div>
+
+<div id="snakeGame" style="display:none">
+  <canvas id="snakeCanvas" width="300" height="300"></canvas>
+  <div id="snakeControls">
+    <button onclick="changeDirection(0,-1)">⬆</button><br>
+    <button onclick="changeDirection(-1,0)">⬅</button>
+    <button onclick="changeDirection(1,0)">➡</button><br>
+    <button onclick="changeDirection(0,1)">⬇</button>
+  </div>
+</div>
+</section>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+<script>
+// تحقق من المستخدم وعرض قسم Admin
+auth.onAuthStateChanged(user=>{
+  if(user){
+    if(user.email==="redaragd62@gmail.com"){
+      document.getElementById("uploadSection").style.display="block";
+    } else {
+      document.getElementById("uploadSection").style.display="none";
+    }
+  }
 });
+
+// رفع الفيديوهات (Admin فقط)
+const storage = firebase.storage();
+function uploadVideo(){
+  const file = document.getElementById("videoFile").files[0];
+  if(!file) return alert("اختر فيديو أولاً");
+  const videoRef = storage.ref("videos/"+file.name);
+  videoRef.put(file).then(snapshot=>{
+    snapshot.ref.getDownloadURL().then(url=>{
+      db.ref("videos").push({url:url,name:file.name});
+      alert("✅ تم رفع الفيديو");
+      loadVideos();
+    });
+  });
+}
+
+// تحميل الفيديوهات وعرضها للجميع
+function loadVideos(){
+  const container = document.getElementById("videosContainer");
+  container.innerHTML="";
+  db.ref("videos").on("value",snapshot=>{
+    snapshot.forEach(child=>{
+      const video = child.val();
+      container.innerHTML+=`
+        <video width="300" controls style="margin:5px">
+          <source src="${video.url}" type="video/mp4">
+        </video>
+      `;
+    });
+  });
+}
+loadVideos();
+
+// الألعاب XO
+let board=["","","","","","","","",""],player="X",ai="O";
+let cells=document.querySelectorAll("#xoGame .cell"),status=document.getElementById("gameStatus");
+function checkWin(){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let [a,b,c] of w){if(board[a]&&board[a]==board[b]&&board[a]==board[c])return board[a]}return board.includes("")?null:"Tie";}
+function updateXO(){cells.forEach((c,i)=>c.textContent=board[i]);let win=checkWin();status.textContent=win?((win==="Tie")?"تعادل":"الفائز: "+win):"دورك: X";}
+function aiMove(){for(let i=0;i<9;i++)if(board[i]===""){board[i]=ai;break}}
+cells.forEach((cell,i)=>{cell.onclick=()=>{if(board[i]===""&&!checkWin()){board[i]=player;if(!checkWin())aiMove();updateXO();}}});
+document.getElementById("resetBtn").onclick=()=>{board=["","","","","","","","",""];updateXO();};
+updateXO();
+
+// لعبة Snake
+const canvas=document.getElementById('snakeCanvas'),ctx=canvas.getContext('2d');
+let snake=[{x:10,y:10}],dx=1,dy=0,food={x:5,y:5},size=15;
+function drawSnake(){ctx.fillStyle="black";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="lime";snake.forEach(s=>ctx.fillRect(s.x*size,s.y*size,size-2,size-2));ctx.fillStyle="red";ctx.fillRect(food.x*size,food.y*size,size-2,size-2);}
+function moveSnake(){let head={x:snake[0].x+dx,y:snake[0].y+dy};snake.unshift(head);if(head.x==food.x&&head.y==food.y){food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}}else snake.pop();if(head.x<0||head.y<0||head.x*size>=canvas.width||head.y*size>=canvas.height||snake.slice(1).some(s=>s.x==head.x&&s.y==head.y)){snake=[{x:10,y:10}];dx=1;dy=0;}drawSnake();}
+setInterval(moveSnake,200);
+document.addEventListener('keydown',e=>{if(e.key=="ArrowUp"&&dy==0){dx=0;dy=-1}else if(e.key=="ArrowDown"&&dy==0){dx=0;dy=1}else if(e.key=="ArrowLeft"&&dx==0){dx=-1;dy=0}else if(e.key=="ArrowRight"&&dx==0){dx=1;dy=0}});
 function changeDirection(nx,ny){if(nx!==-dx||ny!==-dy){dx=nx;dy=ny;}}
 </script>
+
+<button id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆</button>
 </body>
 </html>
