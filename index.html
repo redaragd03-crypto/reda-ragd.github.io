@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>موقعي الشخصي - رضا</title>
 <style>
+/* ======= CSS ======= */
 body{font-family:'Segoe UI',Tahoma,Verdana,sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#ff9966,#66ccff);color:white;text-align:center;transition:.5s}
 nav{display:flex;justify-content:center;gap:20px;background:rgba(0,0,0,.3);padding:15px;position:sticky;top:0;z-index:1000}
 nav a{color:white;text-decoration:none;font-size:18px;transition:.3s}
@@ -35,15 +36,19 @@ textarea{resize:none;height:100px}
 .small{font-size:13px;color:#eee}
 .contact{display:flex;flex-direction:column;gap:10px;margin-top:20px;background:rgba(255,255,255,0.06);padding:15px;border-radius:12px;color:#111}
 .contact input,.contact textarea{color:#111}
+#messages{max-width:500px;margin:auto;text-align:left}
+.msg{background:#fff;padding:10px;margin:10px 0;border-radius:8px;box-shadow:0 0 5px rgba(0,0,0,0.1);color:#000}
 </style>
 </head>
 <body>
+
 <nav>
 <a href="#home" class="lang" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a>
 <a href="#about" class="lang" data-ar="👤 عني" data-en="👤 About">👤 عني</a>
 <a href="#fun" class="lang" data-ar="🎮 رفاهية" data-en="🎮 Fun">🎮 رفاهية</a>
 <a href="#blog" class="lang" data-ar="📝 المدونة" data-en="📝 Blog">📝 المدونة</a>
 <a href="#contact" class="lang" data-ar="📩 تواصل" data-en="📩 Contact">📩 تواصل</a>
+<a href="#messages" class="lang" data-ar="📬 رسائل" data-en="📬 Messages">📬 رسائل</a>
 </nav>
 
 <header id="home" class="lang" data-ar="👋 أهلاً بيكم في موقع رضا" data-en="👋 Welcome to Reda's Website">👋 أهلاً بيكم في موقع رضا</header>
@@ -59,7 +64,6 @@ textarea{resize:none;height:100px}
 <button onclick="showGame('xo')">X و O</button>
 <button onclick="showGame('snake')">Snake</button>
 </div>
-<!-- XO -->
 <div id="xoGame" style="display:none">
 <div class="xo-board">
 <div class="cell" data-index="0"></div><div class="cell" data-index="1"></div><div class="cell" data-index="2"></div>
@@ -69,7 +73,6 @@ textarea{resize:none;height:100px}
 <div id="gameStatus">دورك: X</div>
 <button id="resetBtn">إعادة اللعبة</button>
 </div>
-<!-- Snake -->
 <div id="snakeGame" style="display:none">
 <canvas id="snakeCanvas" width="300" height="300"></canvas>
 <div id="snakeControls">
@@ -94,26 +97,33 @@ textarea{resize:none;height:100px}
 <a href="https://facebook.com" target="_blank">FB</a>
 <a href="https://github.com" target="_blank">GH</a>
 </div>
-
-<!-- ===== FormSubmit contact form: any message sent here will reach redaragd62@gmail.com ===== -->
 <form action="https://formsubmit.co/redaragd62@gmail.com" method="POST" class="contact">
-  <!-- تعطيل الكابتشا من FormSubmit (اختياري) -->
-  <input type="hidden" name="_captcha" value="false">
-  <!-- بعد الإرسال ممكن ترجع للنفس الصفحة: ضع رابط موقعك هنا بدل https://example.com -->
-  <!-- <input type="hidden" name="_next" value="https://example.com/#contact"> -->
-
-  <input name="name" placeholder="الاسم" required />
-  <input name="email" type="email" placeholder="الإيميل (اختياري)" />
-  <textarea name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
-
-  <div style="display:flex;gap:8px;align-items:center;justify-content:center">
-    <button type="submit" style="padding:10px 18px;border-radius:8px;cursor:pointer">📨 أرسل</button>
-  </div>
-
-  <div class="small" style="margin-top:6px;color:#fff">ملاحظة: ستصلك رسالة تفعيل من FormSubmit في بريدك أول مرة — افتحها واضغط رابط التفعيل.</div>
+<input type="hidden" name="_captcha" value="false">
+<input name="name" placeholder="الاسم" required />
+<input name="email" type="email" placeholder="الإيميل (اختياري)" />
+<textarea name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+<div style="display:flex;gap:8px;align-items:center;justify-content:center">
+<button type="submit" style="padding:10px 18px;border-radius:8px;cursor:pointer">📨 أرسل</button>
+</div>
+<div class="small" style="margin-top:6px;color:#fff">ملاحظة: ستصلك رسالة تفعيل من FormSubmit في بريدك أول مرة — افتحها واضغط رابط التفعيل.</div>
 </form>
-<!-- ================================================================================================== -->
+</section>
 
+<section id="messages" style="display:none">
+<h2>📬 الرسائل الخاصة</h2>
+<input type="email" id="signupEmail" placeholder="📧 البريد الإلكتروني">
+<input type="password" id="signupPassword" placeholder="🔑 كلمة المرور">
+<button onclick="signupUser()">تسجيل جديد</button>
+<input type="email" id="loginEmail" placeholder="📧 البريد الإلكتروني">
+<input type="password" id="loginPassword" placeholder="🔑 كلمة المرور">
+<button onclick="loginUser()">دخول</button>
+<button onclick="logoutUser()">🚪 تسجيل خروج</button>
+<h3 id="userStatus" style="color:green;">لم يتم تسجيل الدخول</h3>
+<div id="messageSection" style="display:none;">
+<textarea id="userMessage" placeholder="اكتب رسالتك هنا..."></textarea>
+<button onclick="sendMessage()">إرسال</button>
+<div id="messagesList"></div>
+</div>
 </section>
 
 <div>
@@ -125,43 +135,78 @@ textarea{resize:none;height:100px}
 <footer class="lang" data-ar="&copy; 2025 - رضا راجد" data-en="&copy; 2025 - Rida Ragd">&copy; 2025 - رضا راجد</footer>
 <button id="toTop" onclick="scrollToTop()">⬆</button>
 
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
 <script>
-// اللغة والوضع الليلي
-function setLang(l){
- document.querySelectorAll('.lang').forEach(e=>{
-   e.innerHTML=e.getAttribute('data-'+l);
- });
- document.body.dir=(l==='ar')?'rtl':'ltr';
+// ======== Firebase setup ========
+const firebaseConfig = { apiKey: "AIzaSyAe61P8lmdAQNYIhqIZ__xxYDmYlLhhiBw", authDomain: "reda-ragd.firebaseapp.com", projectId: "reda-ragd", storageBucket: "reda-ragd.firebasestorage.app", messagingSenderId: "807567430584", appId: "1:807567430584:web:93a27b3e13266582e9754d", databaseURL: "https://reda-ragd-default-rtdb.firebaseio.com/" };
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.database();
+
+// تسجيل مستخدم جديد
+function signupUser(){
+ const email=document.getElementById("signupEmail").value;
+ const password=document.getElementById("signupPassword").value;
+ auth.createUserWithEmailAndPassword(email,password).then(user=>{alert("✅ تم إنشاء الحساب: "+user.user.email);}).catch(err=>alert("❌ خطأ: "+err.message));
 }
-// وضع ليلي
+
+// تسجيل دخول
+function loginUser(){
+ const email=document.getElementById("loginEmail").value;
+ const password=document.getElementById("loginPassword").value;
+ auth.signInWithEmailAndPassword(email,password).then(user=>{
+  document.getElementById("userStatus").innerText="✔️ مسجل دخول كـ: "+user.user.email;
+  document.getElementById("messageSection").style.display="block";
+  loadMessages();
+ }).catch(err=>alert("❌ خطأ: "+err.message));
+}
+
+// تسجيل خروج
+function logoutUser(){
+ auth.signOut().then(()=>{
+  document.getElementById("userStatus").innerText="🚪 تم تسجيل الخروج";
+  document.getElementById("messageSection").style.display="none";
+ });
+}
+
+// ارسال رسالة
+function sendMessage(){
+ const message=document.getElementById("userMessage").value;
+ const user=auth.currentUser;
+ if(!user){alert("❌ لازم تسجل دخول الأول"); return;}
+ if(message.trim()==="") return;
+ const msgRef=db.ref("messages").push();
+ msgRef.set({email:user.email,text:message,time:new Date().toLocaleString()});
+ document.getElementById("userMessage").value="";
+}
+
+// تحميل الرسائل
+function loadMessages(){
+ const msgDiv=document.getElementById("messagesList");
+ db.ref("messages").on("value",snapshot=>{
+  msgDiv.innerHTML="";
+  snapshot.forEach(child=>{
+   const data=child.val();
+   msgDiv.innerHTML+=`<div class="msg"><b>${data.email}</b><br>${data.text}<br><small>${data.time}</small></div>`;
+  });
+ });
+}
+
+// اللغة والوضع الليلي
+function setLang(l){document.querySelectorAll('.lang').forEach(e=>{e.innerHTML=e.getAttribute('data-'+l);});document.body.dir=(l==='ar')?'rtl':'ltr';}
 function toggleDark(){document.body.classList.toggle("dark")}
-// زر العودة
 window.onscroll=()=>document.getElementById("toTop").style.display=(window.scrollY>200)?"block":"none";
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
 
 // العاب
-function showGame(n){
- document.getElementById('xoGame').style.display=(n==='xo')?'block':'none';
- document.getElementById('snakeGame').style.display=(n==='snake')?'block':'none';
-}
+function showGame(n){document.getElementById('xoGame').style.display=(n==='xo')?'block':'none';document.getElementById('snakeGame').style.display=(n==='snake')?'block':'none';}
+
 // XO Game
-let board=["","","","","","","","",""],player="X",ai="O";
-let cells=document.querySelectorAll("#xoGame .cell"),status=document.getElementById("gameStatus");
-function checkWin(){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let [a,b,c] of w){if(board[a]&&board[a]==board[b]&&board[a]==board[c])return board[a]}return board.includes("")?null:"Tie";}
-function update(){cells.forEach((c,i)=>c.textContent=board[i]);let win=checkWin();if(win)status.textContent=(win==="Tie")?"تعادل":"الفائز: "+win;else status.textContent="دورك: X";}
-function aiMove(){for(let i=0;i<9;i++)if(board[i]===""){board[i]=ai;break}}
-cells.forEach((cell,i)=>cell.onclick=()=>{if(board[i]===""&&!checkWin()){board[i]=player;if(!checkWin())aiMove();update();}});
-document.getElementById("resetBtn").onclick=()=>{board=["","","","","","","","",""];update();};
-update();
+let board=["","","","","","","","",""];let player="X",ai="O";let cells=document.querySelectorAll("#xoGame .cell"),status=document.getElementById("gameStatus");function checkWin(){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let [a,b,c] of w){if(board[a]&&board[a]==board[b]&&board[a]==board[c])return board[a]}return board.includes("")?null:"Tie";}function update(){cells.forEach((c,i)=>c.textContent=board[i]);let win=checkWin();if(win)status.textContent=(win==="Tie")?"تعادل":"الفائز: "+win;else status.textContent="دورك: X";}function aiMove(){for(let i=0;i<9;i++)if(board[i]===""){board[i]=ai;break}}cells.forEach((cell,i)=>{cell.onclick=()=>{if(board[i]===""&&!checkWin()){board[i]=player;if(!checkWin())aiMove();update();}}});document.getElementById("resetBtn").onclick=()=>{board=["","","","","","","","",""];update();};update();
 
 // Snake
-const canvas=document.getElementById('snakeCanvas');const ctx=canvas.getContext('2d');
-let snake=[{x:10,y:10}],dx=1,dy=0,food={x:5,y:5},size=15;
-function draw(){ctx.fillStyle="black";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="lime";snake.forEach(s=>ctx.fillRect(s.x*size,s.y*size,size-2,size-2));ctx.fillStyle="red";ctx.fillRect(food.x*size,food.y*size,size-2,size-2);}
-function move(){let head={x:snake[0].x+dx,y:snake[0].y+dy};snake.unshift(head);if(head.x==food.x&&head.y==food.y){food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}}else snake.pop();if(head.x<0||head.y<0||head.x*size>=canvas.width||head.y*size>=canvas.height||snake.slice(1).some(s=>s.x==head.x&&s.y==head.y)){snake=[{x:10,y:10}];dx=1;dy=0;}draw();}
-setInterval(move,200);
-document.addEventListener('keydown',e=>{if(e.key=="ArrowUp"&&dy==0){dx=0;dy=-1}else if(e.key=="ArrowDown"&&dy==0){dx=0;dy=1}else if(e.key=="ArrowLeft"&&dx==0){dx=-1;dy=0}else if(e.key=="ArrowRight"&&dx==0){dx=1;dy=0}});
-function changeDirection(nx,ny){if(nx!==-dx||ny!==-dy){dx=nx;dy=ny;}}
-</script>
-</body>
-</html>
+const canvas=document.getElementById('snakeCanvas');const ctx=canvas.getContext('2d');let snake=[{x:10,y:10}],dx=1,dy=0,food={x:5,y:5},size=15;function draw(){ctx.fillStyle="black";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="lime";snake.forEach(s=>ctx.fillRect(s.x*size,s.y*size,size-2,size-2));ctx.fillStyle="red";ctx.fillRect(food.x*size,food.y*size,size-2,size-2);}function move(){let head={x:snake[0].x+dx,y:snake[0].y+dy};snake.unshift(head);if(head.x==food.x&&head.y==food.y){food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}}else snake.pop();if(head.x<0||head.y<0||head.x*size>=canvas.width||head.y*size>=canvas.height||snake.slice(1).some(s=>s.x==head.x&&s.y==head.y)){snake=[{x:10,y:10}];dx=1;dy=0;}draw();}setInterval(move,200);document.addEventListener('keydown',e=>{if(e.key=="ArrowUp"&&dy==0){dx=0;dy=-1}else if(e.key=="ArrowDown"&&dy==0){dx=0;dy=1}else if(e.key=="ArrowLeft"&&dx==0){dx=-1;dy=0}else if(e.key=="ArrowRight"&&dx==0){dx=1;dy=0}});function changeDirection(nx,ny){if(nx!==-dx||ny!==-dy){dx=nx;dy
