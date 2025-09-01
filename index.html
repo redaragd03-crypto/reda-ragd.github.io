@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>موقعي الشخصي - رضا</title>
 <style>
-body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#ff9966,#66ccff);color:white;text-align:center;transition:.5s}
+body{font-family:'Segoe UI',Tahoma,Verdana,sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#ff9966,#66ccff);color:white;text-align:center;transition:.5s}
 nav{display:flex;justify-content:center;gap:20px;background:rgba(0,0,0,.3);padding:15px;position:sticky;top:0;z-index:1000}
 nav a{color:white;text-decoration:none;font-size:18px;transition:.3s}
 nav a:hover{color:yellow;transform:scale(1.1)}
@@ -29,7 +29,6 @@ textarea{resize:none;height:100px}
 .cell:hover{background:rgba(255,255,255,.4)}
 #gameStatus{font-size:22px;margin-top:15px}
 #resetBtn{margin-top:15px;padding:10px 20px;font-size:16px;border-radius:20px;cursor:pointer;background:yellow;color:black}
-/* Snake Game */
 #snakeCanvas{background:black;margin:20px auto;display:block;border:2px solid yellow}
 #snakeControls{margin:10px auto;display:inline-block}
 #snakeControls button{padding:10px 15px;margin:3px;border-radius:10px;background:yellow;color:black;font-size:18px}
@@ -40,15 +39,11 @@ textarea{resize:none;height:100px}
 <a href="#home" class="lang" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a>
 <a href="#about" class="lang" data-ar="👤 عني" data-en="👤 About">👤 عني</a>
 <a href="#fun" class="lang" data-ar="🎮 رفاهية" data-en="🎮 Fun">🎮 رفاهية</a>
+<a href="#blog" class="lang" data-ar="📝 المدونة" data-en="📝 Blog">📝 المدونة</a>
 <a href="#contact" class="lang" data-ar="📩 تواصل" data-en="📩 Contact">📩 تواصل</a>
 </nav>
 
 <header id="home" class="lang" data-ar="👋 أهلاً بيكم في موقع رضا" data-en="👋 Welcome to Reda's Website">👋 أهلاً بيكم في موقع رضا</header>
-
-<section>
-<p class="lang" data-ar="ده أول موقع بسيط معمول باستخدام GitHub Pages." data-en="This is my first simple website using GitHub Pages.">ده أول موقع بسيط معمول باستخدام GitHub Pages.</p>
-<p class="lang" data-ar="تقدر تعدل عليه وتخلي شكله زي ما تحب." data-en="You can edit it and make it look the way you like.">تقدر تعدل عليه وتخلي شكله زي ما تحب.</p>
-</section>
 
 <section id="about">
 <h2 class="lang" data-ar="👤 عني" data-en="👤 About Me">👤 عني</h2>
@@ -61,19 +56,17 @@ textarea{resize:none;height:100px}
 <button onclick="showGame('xo')">X و O</button>
 <button onclick="showGame('snake')">Snake</button>
 </div>
-
-<!-- Tic Tac Toe -->
-<div id="xoGame">
+<!-- XO -->
+<div id="xoGame" style="display:none">
 <div class="xo-board">
 <div class="cell" data-index="0"></div><div class="cell" data-index="1"></div><div class="cell" data-index="2"></div>
 <div class="cell" data-index="3"></div><div class="cell" data-index="4"></div><div class="cell" data-index="5"></div>
 <div class="cell" data-index="6"></div><div class="cell" data-index="7"></div><div class="cell" data-index="8"></div>
 </div>
-<div id="gameStatus">دور: أنت / X</div>
-<button id="resetBtn">إعادة اللعبة / Reset Game</button>
+<div id="gameStatus">دورك: X</div>
+<button id="resetBtn">إعادة اللعبة</button>
 </div>
-
-<!-- Snake Game -->
+<!-- Snake -->
 <div id="snakeGame" style="display:none">
 <canvas id="snakeCanvas" width="300" height="300"></canvas>
 <div id="snakeControls">
@@ -85,21 +78,19 @@ textarea{resize:none;height:100px}
 </div>
 </section>
 
+<section id="blog">
+<h2>📝 المدونة</h2>
+<textarea placeholder="✍️ اكتب مقالك هنا..."></textarea>
+<button onclick="alert('✅ تم الحفظ (محاكاة)')">💾 حفظ</button>
+</section>
+
 <section id="contact">
 <h2 class="lang" data-ar="📩 تواصل معي" data-en="📩 Contact Me">📩 تواصل معي</h2>
-<p class="lang" data-ar="ممكن تتواصل معايا عن طريق:" data-en="You can reach me via:">ممكن تتواصل معايا عن طريق:</p>
 <p>📞 01152424287</p>
 <div class="socials">
-<a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-<a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-<a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+<a href="https://facebook.com" target="_blank">FB</a>
+<a href="https://github.com" target="_blank">GH</a>
 </div>
-<form onsubmit="sendMessage(event)">
-<input type="text" placeholder="الاسم" required>
-<input type="email" placeholder="الإيميل" required>
-<textarea placeholder="اكتب رسالتك..." required></textarea>
-<button type="submit">📨 إرسال</button>
-</form>
 </section>
 
 <div>
@@ -112,47 +103,42 @@ textarea{resize:none;height:100px}
 <button id="toTop" onclick="scrollToTop()">⬆</button>
 
 <script>
-// اللغة والوضع الليلي
-function setLang(l){document.querySelectorAll('.lang').forEach(e=>e.innerHTML=e.getAttribute('data-'+l));document.body.dir=(l==='ar')?'rtl':'ltr'}
+// لغة
+function setLang(l){
+ document.querySelectorAll('.lang').forEach(e=>{
+   e.innerHTML=e.getAttribute('data-'+l);
+ });
+ document.body.dir=(l==='ar')?'rtl':'ltr';
+}
+// وضع ليلي
 function toggleDark(){document.body.classList.toggle("dark")}
-window.onscroll=()=>document.getElementById("toTop").style.display=(document.documentElement.scrollTop>200)?"block":"none"
+// زر العودة
+window.onscroll=()=>document.getElementById("toTop").style.display=(window.scrollY>200)?"block":"none";
 function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
-function sendMessage(e){e.preventDefault();alert("✅ تم إرسال رسالتك بنجاح! (محاكاة فقط)")}
 
-// تبديل الألعاب
-function showGame(name){
-  document.getElementById('xoGame').style.display=(name==='xo')?'block':'none';
-  document.getElementById('snakeGame').style.display=(name==='snake')?'block':'none';
+// العاب
+function showGame(n){
+ document.getElementById('xoGame').style.display=(n==='xo')?'block':'none';
+ document.getElementById('snakeGame').style.display=(n==='snake')?'block':'none';
 }
+// XO Game
+let board=["","","","","","","","",""],player="X",ai="O";
+let cells=document.querySelectorAll("#xoGame .cell"),status=document.getElementById("gameStatus");
+function checkWin(){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let [a,b,c] of w){if(board[a]&&board[a]==board[b]&&board[a]==board[c])return board[a]}return board.includes("")?null:"Tie";}
+function update(){cells.forEach((c,i)=>c.textContent=board[i]);let win=checkWin();if(win)status.textContent=(win==="Tie")?"تعادل":"الفائز: "+win;else status.textContent="دورك: X";}
+function aiMove(){for(let i=0;i<9;i++)if(board[i]===""){board[i]=ai;break}}
+cells.forEach((cell,i)=>cell.onclick=()=>{if(board[i]===""&&!checkWin()){board[i]=player;if(!checkWin())aiMove();update();}});
+document.getElementById("resetBtn").onclick=()=>{board=["","","","","","","","",""];update();};
+update();
 
-// Tic Tac Toe مع روبوت
-document.addEventListener("DOMContentLoaded",function(){
-let b=["","","","","","","","",""],p="X",a="O",c=document.querySelectorAll("#xoGame .cell"),s=document.getElementById("gameStatus"),r=document.getElementById("resetBtn");
-function w(){const f=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let e of f){let [x,y,z]=e;if(b[x]&&b[x]===b[y]&&b[x]===b[z])return b[x]}return b.includes("")?null:"Tie"}
-function u(){c.forEach((e,i)=>e.textContent=b[i]);let e=w();s.textContent=e?e==="Tie"?"تعادل / Tie":e===p?"لقد فزت! / You win!":"الروبوت فاز! / AI wins!":"دور: أنت / X"}
-function m(){for(let i=0;i<9;i++)if(b[i]===""){b[i]=a;if(w()===a)return;b[i]=""}for(let i=0;i<9;i++)if(b[i]===""){b[i]=p;if(w()===p){b[i]=a;return}b[i]=""}let k=b.map((v,i)=>v===""?i:null).filter(v=>v!==null);if(k.length>0)b[k[Math.floor(Math.random()*k.length)]]=a}
-c.forEach(e=>e.addEventListener("click",()=>{let i=parseInt(e.getAttribute("data-index"));if(b[i]===""&&!w()){b[i]=p;if(!w())m();u()}}))
-r.addEventListener("click",()=>{b=["","","","","","","","",""];u()});u();
-});
-
-// Snake Game
-const canvas=document.getElementById('snakeCanvas');
-const ctx=canvas.getContext('2d');
-let snake=[{x:10,y:10}];let dx=1,dy=0,food={x:15,y:15},size=20;
-function drawSnake(){ctx.fillStyle='black';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='lime';snake.forEach(s=>ctx.fillRect(s.x*size,s.y*size,size-2,size-2));ctx.fillStyle='red';ctx.fillRect(food.x*size,food.y*size,size-2,size-2);}
-function moveSnake(){let head={x:snake[0].x+dx,y:snake[0].y+dy};snake.unshift(head);if(head.x===food.x&&head.y===food.y){food={x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)}}else{snake.pop()}
-if(snake.slice(1).some(s=>s.x===head.x&&s.y===head.y)||head.x<0||head.y<0||head.x>=15||head.y>=15){snake=[{x:10,y:10}];dx=1;dy=0;food={x:Math.floor(Math.random()*15),y:Math.floor(Math.random()*15)}}
-drawSnake();}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowUp'&&dy!==1){dx=0;dy=-1}else if(e.key==='ArrowDown'&&dy!==-1){dx=0;dy=1}else if(e.key==='ArrowLeft'&&dx!==1){dx=-1;dy=0}else if(e.key==='ArrowRight'&&dx!==-1){dx=1;dy=0}});
-setInterval(moveSnake,200);
-
-// التحكم باللمس للأزرار على الهاتف
-function changeDirection(newDx,newDy){
-  if((newDx!==0 && dx!== -newDx) || (newDy!==0 && dy!== -newDy)){
-    dx=newDx;
-    dy=newDy;
-  }
-}
+// Snake
+const canvas=document.getElementById('snakeCanvas');const ctx=canvas.getContext('2d');
+let snake=[{x:10,y:10}],dx=1,dy=0,food={x:5,y:5},size=15;
+function draw(){ctx.fillStyle="black";ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle="lime";snake.forEach(s=>ctx.fillRect(s.x*size,s.y*size,size-2,size-2));ctx.fillStyle="red";ctx.fillRect(food.x*size,food.y*size,size-2,size-2);}
+function move(){let head={x:snake[0].x+dx,y:snake[0].y+dy};snake.unshift(head);if(head.x==food.x&&head.y==food.y){food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}}else snake.pop();if(head.x<0||head.y<0||head.x*size>=canvas.width||head.y*size>=canvas.height||snake.slice(1).some(s=>s.x==head.x&&s.y==head.y)){snake=[{x:10,y:10}];dx=1;dy=0;}draw();}
+setInterval(move,200);
+document.addEventListener('keydown',e=>{if(e.key=="ArrowUp"&&dy==0){dx=0;dy=-1}else if(e.key=="ArrowDown"&&dy==0){dx=0;dy=1}else if(e.key=="ArrowLeft"&&dx==0){dx=-1;dy=0}else if(e.key=="ArrowRight"&&dx==0){dx=1;dy=0}});
+function changeDirection(nx,ny){if(nx!==-dx||ny!==-dy){dx=nx;dy=ny;}}
 </script>
 </body>
 </html>
