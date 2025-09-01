@@ -32,6 +32,9 @@ textarea{resize:none;height:100px}
 #snakeCanvas{background:black;margin:20px auto;display:block;border:2px solid yellow}
 #snakeControls{margin:10px auto;display:inline-block}
 #snakeControls button{padding:10px 15px;margin:3px;border-radius:10px;background:yellow;color:black;font-size:18px}
+.small{font-size:13px;color:#eee}
+.contact{display:flex;flex-direction:column;gap:10px;margin-top:20px;background:rgba(255,255,255,0.06);padding:15px;border-radius:12px;color:#111}
+.contact input,.contact textarea{color:#111}
 </style>
 </head>
 <body>
@@ -86,11 +89,31 @@ textarea{resize:none;height:100px}
 
 <section id="contact">
 <h2 class="lang" data-ar="📩 تواصل معي" data-en="📩 Contact Me">📩 تواصل معي</h2>
-<p>📞 01152424287</p>
+<p class="small">📞 01152424287</p>
 <div class="socials">
 <a href="https://facebook.com" target="_blank">FB</a>
 <a href="https://github.com" target="_blank">GH</a>
 </div>
+
+<!-- ===== FormSubmit contact form: any message sent here will reach redaragd62@gmail.com ===== -->
+<form action="https://formsubmit.co/redaragd62@gmail.com" method="POST" class="contact">
+  <!-- تعطيل الكابتشا من FormSubmit (اختياري) -->
+  <input type="hidden" name="_captcha" value="false">
+  <!-- بعد الإرسال ممكن ترجع للنفس الصفحة: ضع رابط موقعك هنا بدل https://example.com -->
+  <!-- <input type="hidden" name="_next" value="https://example.com/#contact"> -->
+
+  <input name="name" placeholder="الاسم" required />
+  <input name="email" type="email" placeholder="الإيميل (اختياري)" />
+  <textarea name="message" placeholder="اكتب رسالتك هنا..." required></textarea>
+
+  <div style="display:flex;gap:8px;align-items:center;justify-content:center">
+    <button type="submit" style="padding:10px 18px;border-radius:8px;cursor:pointer">📨 أرسل</button>
+  </div>
+
+  <div class="small" style="margin-top:6px;color:#fff">ملاحظة: ستصلك رسالة تفعيل من FormSubmit في بريدك أول مرة — افتحها واضغط رابط التفعيل.</div>
+</form>
+<!-- ================================================================================================== -->
+
 </section>
 
 <div>
@@ -103,7 +126,7 @@ textarea{resize:none;height:100px}
 <button id="toTop" onclick="scrollToTop()">⬆</button>
 
 <script>
-// لغة
+// اللغة والوضع الليلي
 function setLang(l){
  document.querySelectorAll('.lang').forEach(e=>{
    e.innerHTML=e.getAttribute('data-'+l);
