@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>موقعي الشخصي - رضا</title>
+<title>موقع رضا - فيديوهات ورسائل</title>
 <style>
 body{
   font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
@@ -177,7 +177,7 @@ function uploadVideo(){
     .catch(err=>alert("❌ خطأ في رفع الفيديو: "+err.message));
 }
 
-// تحميل الفيديوهات
+// تحميل الفيديوهات لكل المستخدمين
 function loadVideos(){
   const container=document.getElementById("videosContainer");
   container.innerHTML="";
@@ -193,7 +193,6 @@ function loadVideos(){
   });
 }
 loadVideos();
-
 </script>
 </body>
 </html>
