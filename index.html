@@ -1,3 +1,13 @@
+تمام! إذن سأدمج لك الموقع بالكامل بحيث:
+
+1. **لا يظهر الموقع إلا بعد تسجيل الدخول أو إنشاء حساب.**
+2. **كل مستخدم عند تسجيله يُنشأ له مجلد خاص به في Firebase**.
+3. **الرسائل والبيانات الأخرى محفوظة لكل مستخدم بشكل مستقل**.
+4. **الألعاب، المدونة، الوضع الليلي، تغيير اللغة وزر العودة للأعلى تعمل كما هي.**
+
+هنا النسخة المدمجة والجاهزة:
+
+```html
 <!DOCTYPE html>
 <html lang="ar">
 <head>
@@ -111,28 +121,56 @@ const firebaseConfig={apiKey:"AIzaSyAe61P8lmdAQNYIhqIZ__xxYDmYlLhhiBw",authDomai
 firebase.initializeApp(firebaseConfig);
 const auth=firebase.auth(),db=firebase.database();
 
-// تسجيل مستخدم جديد
-function signupUser(){let e=document.getElementById("signupEmail").value,p=document.getElementById("signupPassword").value;auth.createUserWithEmailAndPassword(e,p).then(u=>alert("✅ تم إنشاء الحساب: "+u.user.email)).catch(err=>alert("❌ خطأ: "+err.message));}
+// إنشاء حساب جديد + مجلد للمستخدم
+function signupUser(){
+let e=document.getElementById("signupEmail").value,p=document.getElementById("signupPassword").value;
+auth.createUserWithEmailAndPassword(e,p).then(u=>{
+db.ref("users/"+u.user.uid).set({email:u.user.email,createdAt:new Date().toLocaleString()});
+alert("✅ تم إنشاء الحساب: "+u.user.email);
+}).catch(err=>alert("❌ خطأ: "+err.message));
+}
 
-// تسجيل دخول
-function loginUser(){let e=document.getElementById("loginEmail").value,p=document.getElementById("loginPassword").value;
+// تسجيل الدخول
+function loginUser(){
+let e=document.getElementById("loginEmail").value,p=document.getElementById("loginPassword").value;
 auth.signInWithEmailAndPassword(e,p).then(u=>{
 document.getElementById("userStatus").innerText="✔️ مسجل دخول كـ: "+u.user.email;
 document.getElementById("loginSection").style.display="none";
 document.getElementById("mainContent").style.display="block";
 loadMessages();
-}).catch(err=>alert("❌ خطأ: "+err.message));}
+}).catch(err=>alert("❌ خطأ: "+err.message));
+}
 
 // تسجيل خروج
-function logoutUser(){auth.signOut().then(()=>{
+function logoutUser(){
+auth.signOut().then(()=>{
 document.getElementById("mainContent").style.display="none";
 document.getElementById("loginSection").style.display="block";
 document.getElementById("userStatus").innerText="🚪 تم تسجيل الخروج";
-});}
+});
+}
 
-// الرسائل
-function sendMessage(){let m=document.getElementById("userMessage").value,u=auth.currentUser;if(!u){alert("❌ لازم تسجل دخول الأول");return}if(m.trim()==="")return;db.ref("messages").push().set({email:u.email,text:m,time:new Date().toLocaleString()});document.getElementById("userMessage").value="";}
-function loadMessages(){db.ref("messages").on("value",s=>{let m=document.getElementById("messagesList");m.innerHTML="";s.forEach(c=>{let d=c.val();m.innerHTML+=`<div><b>${d.email}</b><br>${d.text}<br><small>${d.time}</small></div>`;});});}
+// الرسائل لكل مستخدم
+function sendMessage(){
+let m=document.getElementById("userMessage").value,u=auth.currentUser;
+if(!u){alert("❌ لازم تسجل دخول الأول");return}
+if(m.trim()==="")return;
+db.ref("users/"+u.uid+"/messages").push().set({text:m,time:new Date().toLocaleString()});
+document.getElementById("userMessage").value="";
+}
+
+function loadMessages(){
+let u=auth.currentUser;
+if(!u) return;
+const msgDiv=document.getElementById("messagesList");
+db.ref("users/"+u.uid+"/messages").on("value",snapshot=>{
+msgDiv.innerHTML="";
+snapshot.forEach(c=>{
+let d=c.val();
+msgDiv.innerHTML+=`<div><b>أنت</b><br>${d.text}<br><small>${d.time}</small></div>`;
+});
+});
+}
 
 // لغة + الوضع الليلي
 function setLang(l){document.querySelectorAll('.lang').forEach(e=>e.innerHTML=e.getAttribute('data-'+l));document.body.dir=l==='ar'?'rtl':'ltr';}
@@ -147,16 +185,12 @@ function showGame(n){document.getElementById('xoGame').style.display=n==='xo'?'b
 let board=Array(9).fill(''),player='X',ai='O',cells=document.querySelectorAll('#xoGame .cell'),status=document.getElementById('gameStatus');
 function checkWin(){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let [a,b,c] of w)if(board[a]&&board[a]==board[b]&&board[a]==board[c])return board[a];return board.includes('')?null:'Tie';}
 function update(){cells.forEach((c,i)=>c.textContent=board[i]);let w=checkWin();status.textContent=w?w==='Tie'?'تعادل':'الفائز: '+w:'دورك: X';}
-function aiMove(){for(let i=0;i<9;i++)if(board[i]===''){board[i]=ai;break;}}
+function aiMove(){for(let i=0;i<9;i++)if(board[i]===''){board[i]=ai;break}}
 cells.forEach((c,i)=>c.onclick=()=>{if(board[i]===''&&!checkWin()){board[i]=player;if(!checkWin())aiMove();update();}});
 document.getElementById('resetBtn').onclick=()=>{board.fill('');update();};update();
 
 // Snake
 const canvas=document.getElementById('snakeCanvas'),ctx=canvas.getContext('2d');let snake=[{x:10,y:10}],dx=1,dy=0,food={x:5,y:5},size=15;
-function draw(){ctx.fillStyle='black';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='lime';snake.forEach(s=>ctx.fillRect(s.x*size,s.y*size,size-2,size-2));ctx.fillStyle='red';ctx.fillRect(food.x*size,food.y*size,size-2,size-2);}
-function move(){let h={x:snake[0].x+dx,y:snake[0].y+dy};snake.unshift(h);if(h.x==food.x&&h.y==food.y)food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}else snake.pop();if(h.x<0||h.y<0||h.x*size>=canvas.width||h.y*size>=canvas.height||snake.slice(1).some(s=>s.x==h.x&&s.y==h.y)){snake=[{x:10,y:10}];dx=1;dy=0;}draw();}
-setInterval(move,200);document.addEventListener('keydown',e=>{if(e.key=='ArrowUp'&&dy==0){dx=0;dy=-1}else if(e.key=='ArrowDown'&&dy==0){dx=0;dy=1}else if(e.key=='ArrowLeft'&&dx==0){dx=-1;dy=0}else if(e.key=='ArrowRight'&&dx==0){dx=1;dy=0}});
-function changeDirection(nx,ny){if(nx!==-dx||ny!==-dy){dx=nx;dy=ny;}}
-</script>
-</body>
-</html>
+function draw(){ctx.fillStyle='black';
+```
+
