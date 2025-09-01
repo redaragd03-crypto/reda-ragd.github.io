@@ -29,22 +29,7 @@ button{
 }
 button:hover{background:#333;color:white;transform:scale(1.1);}
 input,textarea{padding:10px;margin:5px;width:250px;border-radius:10px;border:none;outline:none;}
-#videosContainer{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:15px;
-  justify-items:center;
-  margin-top:20px;
-}
-.video-card{
-  background:rgba(255,255,255,0.05);
-  border-radius:12px;
-  padding:10px;
-  box-shadow:0 0 10px rgba(0,0,0,0.5);
-  transition:transform 0.3s;
-}
-.video-card:hover{transform:scale(1.05);}
-.video-card video{width:100%;border-radius:10px;}
+.video-container video{width:300px;margin:5px;border-radius:10px;}
 </style>
 </head>
 <body>
@@ -79,7 +64,7 @@ input,textarea{padding:10px;margin:5px;width:250px;border-radius:10px;border:non
 
 <section id="videosSection" style="display:none">
 <h2>🎬 فيديوهات الموقع</h2>
-<div id="videosContainer"></div>
+<div id="videosContainer" class="video-container"></div>
 </section>
 
 <!-- Firebase -->
@@ -87,12 +72,14 @@ input,textarea{padding:10px;margin:5px;width:250px;border-radius:10px;border:non
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+
 <script>
+// إعداد Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAe61P8lmdAQNYIhqIZ__xxYDmYlLhhiBw",
   authDomain: "reda-ragd.firebaseapp.com",
   projectId: "reda-ragd",
-  storageBucket: "reda-ragd.firebasestorage.app",
+  storageBucket: "reda-ragd.appspot.com",
   messagingSenderId: "807567430584",
   appId: "1:807567430584:web:93a27b3e13266582e9754d",
   databaseURL: "https://reda-ragd-default-rtdb.firebaseio.com/"
@@ -101,28 +88,27 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 const storage = firebase.storage();
-</script>
-<script>
-// التحقق من حالة تسجيل الدخول وعرض الأقسام
+
+// التحقق من تسجيل الدخول
 auth.onAuthStateChanged(user=>{
   if(user){
     document.getElementById("authSection").style.display="none";
     document.getElementById("messagesSection").style.display="block";
     document.getElementById("videosSection").style.display="block";
 
-    // إذا كان Admin، عرض واجهة رفع الفيديو
+    // Admin فقط رفع الفيديو
     if(user.email==="redaragd62@gmail.com"){
       if(!document.getElementById("uploadSection")){
-        const uploadSec=document.createElement("div");
+        const uploadSec=document.createElement("section");
         uploadSec.id="uploadSection";
-        uploadSec.className="video-card";
         uploadSec.innerHTML=`
-          <h3>🎬 رفع فيديو جديد (Admin)</h3>
+          <h2>🎬 رفع فيديو جديد (Admin فقط)</h2>
           <input type="file" id="videoFile" accept="video/*">
-          <button onclick="uploadVideo()">رفع الفيديو</button>
+          <button id="uploadBtn">رفع الفيديو</button>
         `;
-        const container=document.getElementById("videosContainer");
-        container.prepend(uploadSec);
+        document.body.insertBefore(uploadSec,document.getElementById("messagesSection"));
+
+        document.getElementById("uploadBtn").addEventListener("click",uploadVideo);
       }
     }
   } else {
@@ -176,35 +162,38 @@ db.ref("messages").on("value",snapshot=>{
   });
 });
 
-// رفع الفيديوهات (Admin فقط)
+// رفع الفيديوهات Admin فقط
 function uploadVideo(){
   const file=document.getElementById("videoFile").files[0];
-  if(!file) return alert("❌ اختر فيديو أولاً");
+  if(!file) return alert("اختر فيديو أولاً");
   const videoRef=storage.ref("videos/"+file.name);
-  videoRef.put(file).then(snapshot=>{
-    snapshot.ref.getDownloadURL().then(url=>{
+  videoRef.put(file)
+    .then(snapshot=>snapshot.ref.getDownloadURL())
+    .then(url=>{
       db.ref("videos").push({url:url,name:file.name});
       alert("✅ تم رفع الفيديو بنجاح!");
-    });
-  }).catch(err=>alert("❌ خطأ في رفع الفيديو: "+err.message));
+      loadVideos();
+    })
+    .catch(err=>alert("❌ خطأ في رفع الفيديو: "+err.message));
 }
 
-// تحميل الفيديوهات لكل المستخدمين
+// تحميل الفيديوهات
 function loadVideos(){
   const container=document.getElementById("videosContainer");
   container.innerHTML="";
   db.ref("videos").on("value",snapshot=>{
     snapshot.forEach(child=>{
       const video=child.val();
-      const card=document.createElement("div");
-      card.className="video-card";
-      card.innerHTML=`<video controls><source src="${video.url}" type="video/mp4"></video>
-      <p style="margin-top:5px;">${video.name}</p>`;
-      container.appendChild(card);
+      container.innerHTML+=`
+        <video controls>
+          <source src="${video.url}" type="video/mp4">
+        </video>
+      `;
     });
   });
 }
 loadVideos();
+
 </script>
 </body>
 </html>
