@@ -1,21 +1,162 @@
-<!DOCTYPE html><html lang="ar"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>موقعي الشخصي - رضا</title><style>body{font-family:'Segoe UI',Tahoma,Verdana,sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#ff9966,#66ccff);color:white;text-align:center;transition:.5s}nav{display:flex;justify-content:center;gap:20px;background:rgba(0,0,0,.3);padding:15px;position:sticky;top:0;z-index:1000}nav a{color:white;text-decoration:none;font-size:18px;transition:.3s}nav a:hover{color:yellow;transform:scale(1.1)}header{padding:50px 20px;font-size:35px;font-weight:bold;text-shadow:2px 2px 5px rgba(0,0,0,.3);animation:fadeIn 2s ease-in-out}section{padding:50px 20px;max-width:800px;margin:auto}p{font-size:20px;line-height:1.6}footer{margin-top:50px;padding:20px;background:rgba(0,0,0,.3);font-size:16px}button{background:white;color:#333;border:none;padding:10px 20px;margin:10px;border-radius:25px;cursor:pointer;font-size:16px;transition:.3s}button:hover{background:#333;color:white;transform:scale(1.1)}.socials a{margin:0 10px;font-size:25px;color:white;transition:.3s}.socials a:hover{color:yellow;transform:scale(1.2)}#toTop{display:none;position:fixed;bottom:20px;right:20px;background:yellow;color:black;border:none;padding:10px 15px;border-radius:50%;cursor:pointer;font-size:18px;box-shadow:0 0 10px rgba(0,0,0,.3)}.dark{background:linear-gradient(135deg,#1a1a1a,#333);color:#ddd}.dark nav,.dark footer{background:rgba(255,255,255,.1)}@keyframes fadeIn{from{opacity:0}to{opacity:1}}.xo-board{display:grid;grid-template-columns:repeat(3,100px);grid-gap:10px;justify-content:center;margin:20px auto}.cell{width:100px;height:100px;background:rgba(255,255,255,.2);font-size:50px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}.cell:hover{background:rgba(255,255,255,.4)}#gameStatus{font-size:22px;margin-top:15px}#resetBtn{margin-top:15px;padding:10px 20px;font-size:16px;border-radius:20px;cursor:pointer;background:yellow;color:black}#snakeCanvas{background:black;margin:20px auto;display:block;border:2px solid yellow}#snakeControls button{padding:10px 15px;margin:3px;border-radius:10px;background:yellow;color:black;font-size:18px}.contact{display:flex;flex-direction:column;gap:10px;margin-top:20px;background:rgba(255,255,255,0.06);padding:15px;border-radius:12px;color:#111}.contact input,.contact textarea{color:#111}#messagesList{max-width:500px;margin:auto;text-align:left}.msg{background:#fff;padding:10px;margin:10px 0;border-radius:8px;box-shadow:0 0 5px rgba(0,0,0,.1);color:#000}</style></head><body>
-<nav><a href="#home" class="lang" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a><a href="#about" class="lang" data-ar="👤 عني" data-en="👤 About">👤 عني</a><a href="#fun" class="lang" data-ar="🎮 رفاهية" data-en="🎮 Fun">🎮 رفاهية</a><a href="#blog" class="lang" data-ar="📝 المدونة" data-en="📝 Blog">📝 المدونة</a><a href="#contact" class="lang" data-ar="📩 تواصل" data-en="📩 Contact">📩 تواصل</a><a href="#messages" class="lang" data-ar="📬 رسائل" data-en="📬 Messages">📬 رسائل</a></nav>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موقعي - رضا</title>
+<style>
+body{font-family:'Segoe UI',sans-serif;margin:0;padding:0;background:linear-gradient(135deg,#ff9966,#66ccff);color:white;text-align:center;transition:.5s}
+nav{display:flex;justify-content:center;gap:15px;background:rgba(0,0,0,.3);padding:10px;position:sticky;top:0;z-index:1000}
+nav a{color:white;text-decoration:none;font-size:16px;transition:.3s}nav a:hover{color:yellow;transform:scale(1.1)}
+header{padding:30px;font-size:28px;font-weight:bold;text-shadow:1px 1px 3px rgba(0,0,0,.3)}
+section{padding:40px 20px;max-width:700px;margin:auto}button{padding:8px 15px;margin:5px;border-radius:20px;border:none;cursor:pointer}#toTop{display:none;position:fixed;bottom:20px;right:20px;background:yellow;color:black;border:none;padding:10px;border-radius:50%}
+.xo-board{display:grid;grid-template-columns:repeat(3,80px);grid-gap:8px;justify-content:center;margin:15px auto}
+.cell{width:80px;height:80px;background:rgba(255,255,255,.2);font-size:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s}
+.cell:hover{background:rgba(255,255,255,.4)}
+#snakeCanvas{background:black;margin:15px auto;display:block;border:2px solid yellow}
+#messagesList{max-width:500px;margin:auto;text-align:left;color:#000}
+.dark{background:linear-gradient(135deg,#1a1a1a,#333)}
+.dark nav{background:rgba(255,255,255,.1)}
+</style>
+</head>
+<body>
+
+<!-- واجهة تسجيل الدخول -->
+<section id="loginSection">
+<h2>تسجيل الدخول أو إنشاء حساب</h2>
+<input type="email" id="signupEmail" placeholder="📧 البريد الإلكتروني">
+<input type="password" id="signupPassword" placeholder="🔑 كلمة المرور">
+<button onclick="signupUser()">تسجيل جديد</button><br>
+<input type="email" id="loginEmail" placeholder="📧 البريد الإلكتروني">
+<input type="password" id="loginPassword" placeholder="🔑 كلمة المرور">
+<button onclick="loginUser()">دخول</button>
+<h3 id="userStatus" style="color:green;">لم يتم تسجيل الدخول</h3>
+</section>
+
+<!-- محتوى الموقع يظهر بعد تسجيل الدخول -->
+<div id="mainContent" style="display:none;">
+<nav>
+<a href="#home" class="lang" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a>
+<a href="#about" class="lang" data-ar="👤 عني" data-en="👤 About">👤 عني</a>
+<a href="#fun" class="lang" data-ar="🎮 رفاهية" data-en="🎮 Fun">🎮 رفاهية</a>
+<a href="#blog" class="lang" data-ar="📝 المدونة" data-en="📝 Blog">📝 المدونة</a>
+<a href="#contact" class="lang" data-ar="📩 تواصل" data-en="📩 Contact">📩 تواصل</a>
+<a href="#messages" class="lang" data-ar="📬 رسائل" data-en="📬 Messages">📬 رسائل</a>
+<button onclick="logoutUser()">🚪 تسجيل خروج</button>
+</nav>
+
 <header id="home" class="lang" data-ar="👋 أهلاً بيكم في موقع رضا" data-en="👋 Welcome to Reda's Website">👋 أهلاً بيكم في موقع رضا</header>
-<section id="about"><h2 class="lang" data-ar="👤 عني" data-en="👤 About Me">👤 عني</h2><p class="lang" data-ar="أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم." data-en="I’m Reda, a beginner web developer. I love learning and experimenting with coding and design.">أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم.</p></section>
-<section id="fun"><h2 class="lang" data-ar="🎮 رفاهية - اختر لعبتك" data-en="🎮 Fun - Choose Your Game">🎮 رفاهية - اختر لعبتك</h2><div><button onclick="showGame('xo')">X و O</button><button onclick="showGame('snake')">Snake</button></div><div id="xoGame" style="display:none"><div class="xo-board">"+Array(9).fill('<div class="cell" data-index="'+Array.from({length:9}).map((_,i)=>i).join('"></div><div class="cell" data-index="')+'"></div>').join('')+"</div><div id="gameStatus">دورك: X</div><button id="resetBtn">إعادة اللعبة</button></div><div id="snakeGame" style="display:none"><canvas id="snakeCanvas" width="300" height="300"></canvas><div id="snakeControls"><button onclick="changeDirection(0,-1)">⬆</button><br><button onclick="changeDirection(-1,0)">⬅</button><button onclick="changeDirection(1,0)">➡</button><br><button onclick="changeDirection(0,1)">⬇</button></div></div></section>
-<section id="blog"><h2>📝 المدونة</h2><textarea placeholder="✍️ اكتب مقالك هنا..."></textarea><button onclick="alert('✅ تم الحفظ (محاكاة)')">💾 حفظ</button></section>
-<section id="contact"><h2 class="lang" data-ar="📩 تواصل معي" data-en="📩 Contact Me">📩 تواصل معي</h2><p class="small">📞 01152424287</p><div class="socials"><a href="https://facebook.com" target="_blank">FB</a><a href="https://github.com" target="_blank">GH</a></div><form action="https://formsubmit.co/redaragd62@gmail.com" method="POST" class="contact"><input type="hidden" name="_captcha" value="false"><input name="name" placeholder="الاسم" required /><input name="email" type="email" placeholder="الإيميل (اختياري)" /><textarea name="message" placeholder="اكتب رسالتك هنا..." required></textarea><button type="submit">📨 أرسل</button></form></section>
-<section id="messages"><h2>📬 الرسائل الخاصة</h2><div id="authSection"><input type="email" id="signupEmail" placeholder="📧 البريد الإلكتروني"><input type="password" id="signupPassword" placeholder="🔑 كلمة المرور"><button onclick="signupUser()">تسجيل جديد</button><input type="email" id="loginEmail" placeholder="📧 البريد الإلكتروني"><input type="password" id="loginPassword" placeholder="🔑 كلمة المرور"><button onclick="loginUser()">دخول</button><button onclick="logoutUser()">🚪 تسجيل خروج</button><h3 id="userStatus" style="color:green;">لم يتم تسجيل الدخول</h3></div><div id="messageSection" style="display:none;"><textarea id="userMessage" placeholder="اكتب رسالتك هنا..."></textarea><button onclick="sendMessage()">إرسال</button><div id="messagesList"></div></div></section>
-<div><button onclick="setLang('ar')">🇸🇦 عربي</button><button onclick="setLang('en')">🇬🇧 English</button><button onclick="toggleDark()">🌙/☀️ وضع ليلي</button></div>
-<footer class="lang" data-ar="&copy; 2025 - رضا راجد" data-en="&copy; 2025 - Rida Ragd">&copy; 2025 - رضا راجد</footer>
+
+<section id="about">
+<h2 class="lang" data-ar="👤 عني" data-en="👤 About Me">👤 عني</h2>
+<p class="lang" data-ar="أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم." data-en="I’m Reda, a beginner web developer. I love learning and experimenting with coding and design.">أنا رضا، مطور مواقع مبتدئ. بحب أتعلم وأجرب أشياء جديدة في البرمجة والتصميم.</p>
+</section>
+
+<section id="fun">
+<h2 class="lang" data-ar="🎮 رفاهية - اختر لعبتك" data-en="🎮 Fun - Choose Your Game">🎮 رفاهية - اختر لعبتك</h2>
+<button onclick="showGame('xo')">X و O</button>
+<button onclick="showGame('snake')">Snake</button>
+
+<div id="xoGame" style="display:none">
+<div class="xo-board">
+<div class="cell" data-index="0"></div><div class="cell" data-index="1"></div><div class="cell" data-index="2"></div>
+<div class="cell" data-index="3"></div><div class="cell" data-index="4"></div><div class="cell" data-index="5"></div>
+<div class="cell" data-index="6"></div><div class="cell" data-index="7"></div><div class="cell" data-index="8"></div>
+</div>
+<div id="gameStatus">دورك: X</div>
+<button id="resetBtn">إعادة اللعبة</button>
+</div>
+
+<div id="snakeGame" style="display:none">
+<canvas id="snakeCanvas" width="300" height="300"></canvas>
+<div>
+<button onclick="changeDirection(0,-1)">⬆</button><br>
+<button onclick="changeDirection(-1,0)">⬅</button>
+<button onclick="changeDirection(1,0)">➡</button><br>
+<button onclick="changeDirection(0,1)">⬇</button>
+</div>
+</div>
+</section>
+
+<section id="blog">
+<h2>📝 المدونة</h2>
+<textarea placeholder="✍️ اكتب مقالك هنا..."></textarea>
+<button onclick="alert('✅ تم الحفظ (محاكاة)')">💾 حفظ</button>
+</section>
+
+<section id="contact">
+<h2 class="lang" data-ar="📩 تواصل معي" data-en="📩 Contact Me">📩 تواصل معي</h2>
+<p>📞 01152424287</p>
+</section>
+
+<section id="messages">
+<h2>📬 الرسائل الخاصة</h2>
+<textarea id="userMessage" placeholder="اكتب رسالتك هنا..."></textarea>
+<button onclick="sendMessage()">إرسال</button>
+<div id="messagesList"></div>
+</section>
+
+<button onclick="setLang('ar')">🇸🇦 عربي</button>
+<button onclick="setLang('en')">🇬🇧 English</button>
+<button onclick="toggleDark()">🌙/☀️ وضع ليلي</button>
 <button id="toTop" onclick="scrollToTop()">⬆</button>
+</div>
+
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
 <script>
-const firebaseConfig={apiKey:"AIzaSyAe61P8lmdAQNYIhqIZ__xxYDmYlLhhiBw",authDomain:"reda-ragd.firebaseapp.com",projectId:"reda-ragd",storageBucket:"reda-ragd.firebasestorage.app",messagingSenderId:"807567430584",appId:"1:807567430584:web:93a27b3e13266582e9754d",databaseURL:"https://reda-ragd-default-rtdb.firebaseio.com/"};firebase.initializeApp(firebaseConfig);const auth=firebase.auth(),db=firebase.database();function signupUser(){let e=document.getElementById("signupEmail").value,p=document.getElementById("signupPassword").value;auth.createUserWithEmailAndPassword(e,p).then(u=>alert("✅ تم إنشاء الحساب: "+u.user.email)).catch(err=>alert("❌ خطأ: "+err.message));}function loginUser(){let e=document.getElementById("loginEmail").value,p=document.getElementById("loginPassword").value;auth.signInWithEmailAndPassword(e,p).then(u=>{document.getElementById("userStatus").innerText="✔️ مسجل دخول كـ: "+u.user.email;document.getElementById("messageSection").style.display="block";loadMessages();}).catch(err=>alert("❌ خطأ: "+err.message));}function logoutUser(){auth.signOut().then(()=>{document.getElementById("userStatus").innerText="🚪 تم تسجيل الخروج";document.getElementById("messageSection").style.display="none";});}function sendMessage(){let m=document.getElementById("userMessage").value,u=auth.currentUser;if(!u){alert("❌ لازم تسجل دخول الأول");return}if(m.trim()==="")return;db.ref("messages").push().set({email:u.email,text:m,time:new Date().toLocaleString()});document.getElementById("userMessage").value="";}function loadMessages(){db.ref("messages").on("value",s=>{let m=document.getElementById("messagesList");m.innerHTML="";s.forEach(c=>{let d=c.val();m.innerHTML+=`<div class='msg'><b>${d.email}</b><br>${d.text}<br><small>${d.time}</small></div>`;});});}function setLang(l){document.querySelectorAll('.lang').forEach(e=>e.innerHTML=e.getAttribute('data-'+l));document.body.dir=l==='ar'?'rtl':'ltr';}function toggleDark(){document.body.classList.toggle('dark');}window.onscroll=()=>document.getElementById("toTop").style.display=window.scrollY>200?"block":"none";function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'});}function showGame(n){document.getElementById('xoGame').style.display=n==='xo'?'block':'none';document.getElementById('snakeGame').style.display=n==='snake'?'block':'none';}
+// Firebase
+const firebaseConfig={apiKey:"AIzaSyAe61P8lmdAQNYIhqIZ__xxYDmYlLhhiBw",authDomain:"reda-ragd.firebaseapp.com",databaseURL:"https://reda-ragd-default-rtdb.firebaseio.com/",projectId:"reda-ragd",storageBucket:"reda-ragd.firebasestorage.app",messagingSenderId:"807567430584",appId:"1:807567430584:web:93a27b3e13266582e9754d"};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth(),db=firebase.database();
+
+// تسجيل مستخدم جديد
+function signupUser(){let e=document.getElementById("signupEmail").value,p=document.getElementById("signupPassword").value;auth.createUserWithEmailAndPassword(e,p).then(u=>alert("✅ تم إنشاء الحساب: "+u.user.email)).catch(err=>alert("❌ خطأ: "+err.message));}
+
+// تسجيل دخول
+function loginUser(){let e=document.getElementById("loginEmail").value,p=document.getElementById("loginPassword").value;
+auth.signInWithEmailAndPassword(e,p).then(u=>{
+document.getElementById("userStatus").innerText="✔️ مسجل دخول كـ: "+u.user.email;
+document.getElementById("loginSection").style.display="none";
+document.getElementById("mainContent").style.display="block";
+loadMessages();
+}).catch(err=>alert("❌ خطأ: "+err.message));}
+
+// تسجيل خروج
+function logoutUser(){auth.signOut().then(()=>{
+document.getElementById("mainContent").style.display="none";
+document.getElementById("loginSection").style.display="block";
+document.getElementById("userStatus").innerText="🚪 تم تسجيل الخروج";
+});}
+
+// الرسائل
+function sendMessage(){let m=document.getElementById("userMessage").value,u=auth.currentUser;if(!u){alert("❌ لازم تسجل دخول الأول");return}if(m.trim()==="")return;db.ref("messages").push().set({email:u.email,text:m,time:new Date().toLocaleString()});document.getElementById("userMessage").value="";}
+function loadMessages(){db.ref("messages").on("value",s=>{let m=document.getElementById("messagesList");m.innerHTML="";s.forEach(c=>{let d=c.val();m.innerHTML+=`<div><b>${d.email}</b><br>${d.text}<br><small>${d.time}</small></div>`;});});}
+
+// لغة + الوضع الليلي
+function setLang(l){document.querySelectorAll('.lang').forEach(e=>e.innerHTML=e.getAttribute('data-'+l));document.body.dir=l==='ar'?'rtl':'ltr';}
+function toggleDark(){document.body.classList.toggle("dark");}
+window.onscroll=()=>document.getElementById("toTop").style.display=window.scrollY>200?"block":"none";
+function scrollToTop(){window.scrollTo({top:0,behavior:'smooth'})}
+
+// الألعاب
+function showGame(n){document.getElementById('xoGame').style.display=n==='xo'?'block':'none';document.getElementById('snakeGame').style.display=n==='snake'?'block':'none';}
+
 // XO Game
-let board=[...Array(9).fill('')],player='X',ai='O',cells=document.querySelectorAll('#xoGame .cell'),status=document.getElementById('gameStatus');function checkWin(){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let [a,b,c] of w)if(board[a]&&board[a]==board[b]&&board[a]==board[c])return board[a];return board.includes('')?null:'Tie';}function update(){cells.forEach((c,i)=>c.textContent=board[i]);let w=checkWin();status.textContent=w?w==='Tie'?'تعادل':'الفائز: '+w:'دورك: X';}function aiMove(){for(let i=0;i<9;i++)if(board[i]===''){board[i]=ai;break}}cells.forEach((c,i)=>c.onclick=()=>{if(board[i]===''&&!checkWin()){board[i]=player;if(!checkWin())aiMove();update();}});document.getElementById('resetBtn').onclick=()=>{board.fill('');update();};update();
+let board=Array(9).fill(''),player='X',ai='O',cells=document.querySelectorAll('#xoGame .cell'),status=document.getElementById('gameStatus');
+function checkWin(){const w=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];for(let [a,b,c] of w)if(board[a]&&board[a]==board[b]&&board[a]==board[c])return board[a];return board.includes('')?null:'Tie';}
+function update(){cells.forEach((c,i)=>c.textContent=board[i]);let w=checkWin();status.textContent=w?w==='Tie'?'تعادل':'الفائز: '+w:'دورك: X';}
+function aiMove(){for(let i=0;i<9;i++)if(board[i]===''){board[i]=ai;break;}}
+cells.forEach((c,i)=>c.onclick=()=>{if(board[i]===''&&!checkWin()){board[i]=player;if(!checkWin())aiMove();update();}});
+document.getElementById('resetBtn').onclick=()=>{board.fill('');update();};update();
+
 // Snake
-const canvas=document.getElementById('snakeCanvas'),ctx=canvas.getContext('2d');let snake=[{x:10,y:10}],dx=1,dy=0,food={x:5,y:5},size=15;function draw(){ctx.fillStyle='black';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='lime';snake.forEach(s=>ctx.fillRect(s.x*size,s.y*size,size-2,size-2));ctx.fillStyle='red';ctx.fillRect(food.x*size,food.y*size,size-2,size-2);}function move(){let h={x:snake[0].x+dx,y:snake[0].y+dy};snake.unshift(h);if(h.x==food.x&&h.y==food.y)food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}else snake.pop();if(h.x<0||h.y<0||h.x*size>=canvas.width||h.y*size>=canvas.height||snake.slice(1).some(s=>s.x==h.x&&s.y==h.y)){snake=[{x:10,y:10}];dx=1;dy=0;}draw();}setInterval(move,200);document.addEventListener('keydown',e=>{if(e.key=='ArrowUp'&&dy==0){dx=0;dy=-1}else if(e.key=='ArrowDown'&&dy==0){dx=0;dy=1}else if(e.key=='ArrowLeft'&&dx==0){dx=-1;dy=0}else if(e.key=='ArrowRight'&&dx==0){dx=1;dy=0}});function changeDirection(nx,ny){if(nx!==-dx||ny!==-dy){dx=nx;dy=ny;}}</script>
-</body></html>
+const canvas=document.getElementById('snakeCanvas'),ctx=canvas.getContext('2d');let snake=[{x:10,y:10}],dx=1,dy=0,food={x:5,y:5},size=15;
+function draw(){ctx.fillStyle='black';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='lime';snake.forEach(s=>ctx.fillRect(s.x*size,s.y*size,size-2,size-2));ctx.fillStyle='red';ctx.fillRect(food.x*size,food.y*size,size-2,size-2);}
+function move(){let h={x:snake[0].x+dx,y:snake[0].y+dy};snake.unshift(h);if(h.x==food.x&&h.y==food.y)food={x:Math.floor(Math.random()*20),y:Math.floor(Math.random()*20)}else snake.pop();if(h.x<0||h.y<0||h.x*size>=canvas.width||h.y*size>=canvas.height||snake.slice(1).some(s=>s.x==h.x&&s.y==h.y)){snake=[{x:10,y:10}];dx=1;dy=0;}draw();}
+setInterval(move,200);document.addEventListener('keydown',e=>{if(e.key=='ArrowUp'&&dy==0){dx=0;dy=-1}else if(e.key=='ArrowDown'&&dy==0){dx=0;dy=1}else if(e.key=='ArrowLeft'&&dx==0){dx=-1;dy=0}else if(e.key=='ArrowRight'&&dx==0){dx=1;dy=0}});
+function changeDirection(nx,ny){if(nx!==-dx||ny!==-dy){dx=nx;dy=ny;}}
+</script>
+</body>
+</html>
